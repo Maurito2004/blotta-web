@@ -18,8 +18,9 @@ const EMAIL_RRHH = 'blottaindustriasrrhh@gmail.com';
    Fuente: catálogo oficial de blotta.com.ar (textos reescritos, datos técnicos reales).
    - categoria: 'masa' | 'conformado' | 'final' (orden del proceso de producción)
    - destacada: true = tarjeta ancha (el producto estrella)
-   - imagen / ancho / alto: foto real en assets/fotos. encuadre: qué parte de la foto
-     se ve en la tarjeta (object-position).
+   - imagen / ancho / alto: foto real en assets/fotos.
+     ajuste: 'entera' = foto de máquina sobre blanco, se muestra completa sin recortar.
+     encuadre: en fotos de escena, qué parte se ve en la tarjeta (object-position).
    - video: ID de YouTube (lo que va después de "v=" en el link). Vacío = sin video. */
 const MAQUINAS = [
   {
@@ -28,7 +29,7 @@ const MAQUINAS = [
     categoria: 'conformado',
     destacada: true,
     icono: 'settings-2',
-    imagen: 'assets/fotos/conformadora.jpg', ancho: 1200, alto: 500, encuadre: '62% 60%',
+    imagen: 'assets/fotos/conformadora-mce.jpg', ancho: 1158, alto: 774, ajuste: 'entera',
     video: '',
     descripcion: 'Dosifican el relleno, doblan, estampan y cortan cada empanada a partir de una lámina de masa.',
     detalle: 'Trabajan directo sobre la lámina, sin cortar discos antes: calibran la masa, la cortan a lo ancho, dosifican el relleno, doblan, estampan y cortan. Son modulares, así que se adaptan al nivel de automatización y producción de cada planta. Cabezales cambiables para distintos tamaños y formas.',
@@ -40,7 +41,7 @@ const MAQUINAS = [
     nombre: 'Mezcladoras',
     categoria: 'masa',
     icono: 'blend',
-    imagen: 'assets/fotos/mezcladora.jpg', ancho: 1200, alto: 407, encuadre: '50% 50%',
+    imagen: 'assets/fotos/mezcladora-m70.jpg', ancho: 1200, alto: 811, ajuste: 'entera',
     video: '',
     descripcion: 'Preparan la masa con dosificación automática de harina y agua.',
     detalle: 'El primer paso de la producción. Dosifican la harina o premezcla con tolva volumétrica y el agua con bomba peristáltica, y controlan el tiempo de mezclado de forma automática. Hay modelos desde 25 kg hasta 1.500 kg de masa por hora.',
@@ -52,7 +53,7 @@ const MAQUINAS = [
     nombre: 'Formadores de hoja',
     categoria: 'masa',
     icono: 'layers',
-    imagen: 'assets/fotos/formador-hoja.jpg', ancho: 1200, alto: 402, encuadre: '45% 50%',
+    imagen: 'assets/fotos/formador-hoja.jpg', ancho: 1200, alto: 714, ajuste: 'entera',
     video: '',
     descripcion: 'Forman una lámina de masa lisa y pareja a partir de grumos o recortes.',
     detalle: 'La masa fresca o los recortes se descargan en la tolva y salen como una hoja de 600 mm de ancho, con las dos caras lisas y la misma tensión. Una cuchilla corta las láminas al largo que necesites.',
@@ -64,7 +65,7 @@ const MAQUINAS = [
     nombre: 'Cruzadores de masa',
     categoria: 'masa',
     icono: 'shuffle',
-    imagen: 'assets/fotos/cruzador.jpg', ancho: 674, alto: 237, encuadre: '50% 50%',
+    imagen: 'assets/fotos/cruzador.jpg', ancho: 674, alto: 237, ajuste: 'entera',
     video: '',
     descripcion: 'Cruzan la masa dos veces para darle mejor liga y elasticidad.',
     detalle: 'Cinco módulos con tres calibradores, seis cintas transportadoras y dos carritos de vaivén que cruzan la masa dos veces. Cada módulo tiene su propio tablero y velocidades independientes.',
@@ -76,7 +77,7 @@ const MAQUINAS = [
     nombre: 'Módulos de laminación',
     categoria: 'masa',
     icono: 'gallery-horizontal',
-    imagen: 'assets/fotos/laminacion.jpg', ancho: 1200, alto: 406, encuadre: '45% 40%',
+    imagen: 'assets/fotos/laminadora-tlc400.jpg', ancho: 864, alto: 628, ajuste: 'entera',
     video: '',
     descripcion: 'Laminan la masa al espesor exacto. Se combinan para armar un tren de laminado.',
     detalle: 'Rodillos revestidos en cromo duro que abren y cierran de 0 a 45 mm. Espesor y velocidades se programan por PLC y se ven en pantalla. Varios módulos se unen con cintas sanitarias para formar un tren de laminado completo.',
@@ -88,7 +89,7 @@ const MAQUINAS = [
     nombre: 'Harinadores',
     categoria: 'masa',
     icono: 'wheat',
-    imagen: 'assets/fotos/harinador.jpg', ancho: 1200, alto: 400, encuadre: '67% 50%',
+    imagen: 'assets/fotos/harinador.jpg', ancho: 1200, alto: 676, ajuste: 'entera',
     video: '',
     descripcion: 'Espolvorean harina de forma pareja y automática. Ahorran harina y cuidan al operario.',
     detalle: 'Se montan sobre sobadoras, laminadoras o trenes de laminado y se pueden pasar de una máquina a otra. Evitan las nubes de harina en la planta y que el operario tenga que emparejarla a mano cerca de los rodillos.',
@@ -100,7 +101,7 @@ const MAQUINAS = [
     nombre: 'Cortadoras de tapas',
     categoria: 'conformado',
     icono: 'disc-3',
-    imagen: 'assets/fotos/cortadora.jpg', ancho: 1200, alto: 460, encuadre: '35% 50%',
+    imagen: 'assets/fotos/cortadora-ce1.jpg', ancho: 666, alto: 375, encuadre: '50% 50%',
     video: 'DWAtu0D1YCU',
     descripcion: 'Cortan discos para empanadas y tartas y los apilan con su separador.',
     detalle: 'El invento de Claudio Blotta: cuchillas rotativas cortan cada disco con su separador y los apilan en la cantidad que programes. La masa y el film sobrantes se separan solos. Cabezales para diámetros de 80 a 320 mm.',
@@ -112,7 +113,7 @@ const MAQUINAS = [
     nombre: 'Módulo de pesaje',
     categoria: 'final',
     icono: 'scale',
-    imagen: 'assets/fotos/pesaje.jpg', ancho: 1200, alto: 406, encuadre: '50% 50%',
+    imagen: 'assets/fotos/pesaje.jpg', ancho: 1400, alto: 470, encuadre: '50% 50%',
     video: '',
     descripcion: 'Controla el peso de cada producto antes de envasar y descarta los que no cumplen.',
     detalle: 'Se coordina con la cortadora y la envasadora. Programás el rango de peso y el módulo saca automáticamente los productos que quedan por encima o por debajo.',
@@ -124,7 +125,7 @@ const MAQUINAS = [
     nombre: 'Envasadora flow pack',
     categoria: 'final',
     icono: 'package',
-    imagen: 'assets/fotos/envasadora.jpg', ancho: 1200, alto: 399, encuadre: '60% 50%',
+    imagen: 'assets/fotos/envasadora.jpg', ancho: 1400, alto: 465, encuadre: '62% 50%',
     video: 'DWAtu0D1YCU',
     descripcion: 'Envasa en film y solo funciona cuando detecta producto: no desperdicia film.',
     detalle: 'Un sensor óptico centra cada producto para que coincida con el envase impreso. Después lo sella a lo largo y a lo ancho y lo corta en unidades. Hombros cambiables para envasar distintos productos.',
@@ -212,7 +213,8 @@ function initHeader() {
 /* ---------- 5. Catálogo con filtros ---------- */
 function htmlImagen(m, clase = '') {
   if (m.imagen) {
-    return `<img class="foto ${clase}" src="${m.imagen}" alt="${escapar(m.nombre)} de Blotta" width="${m.ancho}" height="${m.alto}" style="object-position:${m.encuadre || '50% 50%'}" loading="lazy" decoding="async">`;
+    const entera = m.ajuste === 'entera' ? 'foto--entera' : '';
+    return `<img class="foto ${entera} ${clase}" src="${m.imagen}" alt="${escapar(m.nombre)} de Blotta" width="${m.ancho}" height="${m.alto}" style="object-position:${m.encuadre || '50% 50%'}" loading="lazy" decoding="async">`;
   }
   return `<div class="foto ${clase}" role="img" aria-label="Espacio para la foto de ${escapar(m.nombre)}">
             <i data-lucide="${m.icono}" aria-hidden="true"></i>

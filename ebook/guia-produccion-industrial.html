@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="UTF-8">
+<title>De la producción manual a la industrial – Guía Blotta para productores</title>
+<!-- Fuente del E-Book. Para regenerar el PDF:
+     brave --headless --print-to-pdf=assets/ebook-blotta.pdf --no-pdf-header-footer ebook/guia-produccion-industrial.html -->
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  @page { size: A4; margin: 0; }
+  :root { --azul:#123FB3; --naranja:#EE9E26; --naranja-claro:#FEBB56; --crema:#FCEADB; --marino:#0B3F7A; --texto:#1B1E4B; --suave:#41456F; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body { font-family: "Barlow Condensed", "Arial Narrow", sans-serif; color: var(--texto); font-size: 14.5pt; line-height: 1.42;
+         -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  h1, h2, h3 { font-family: "Montserrat", sans-serif; color: var(--marino); margin: 0; line-height: 1.15; }
+  h2 { font-size: 22pt; margin-bottom: 6mm; }
+  h2::after { content: ""; display: block; width: 22mm; height: 1.6mm; border-radius: 2mm; background: var(--naranja); margin-top: 4mm; }
+  h3 { font-size: 13pt; margin: 6mm 0 2mm; }
+  p { margin: 0 0 3.5mm; }
+  strong { color: var(--marino); }
+  .pagina { width: 210mm; height: 297mm; padding: 20mm 20mm 24mm; position: relative; overflow: hidden; page-break-after: always; background: #fff; }
+  .pagina:last-child { page-break-after: auto; }
+  .pie { position: absolute; left: 20mm; right: 20mm; bottom: 10mm; display: flex; justify-content: space-between; font-size: 10.5pt; color: var(--suave); border-top: 0.4mm solid #E6CDB7; padding-top: 3mm; }
+
+  /* Portada */
+  .portada { background: var(--azul); color: #fff; padding: 22mm; display: flex; flex-direction: column; }
+  .portada .logo { background: #FEF5EC; border-radius: 6mm; padding: 4mm 7mm; align-self: flex-start; }
+  .portada .logo img { height: 15mm; display: block; }
+  .portada .etiqueta { margin-top: 30mm; font-family: Montserrat, sans-serif; font-weight: 700; font-size: 11pt; letter-spacing: 0.08em; text-transform: uppercase; color: var(--naranja-claro); }
+  .portada h1 { color: #fff; font-size: 38pt; font-weight: 800; margin-top: 5mm; }
+  .portada h1 span { color: var(--naranja); }
+  .portada .bajada { font-size: 17pt; margin-top: 8mm; max-width: 140mm; color: #E4EAFB; }
+  .portada .foto { margin-top: auto; background: #fff; border-radius: 6mm; padding: 6mm; }
+  .portada .foto img { width: 100%; height: 78mm; object-fit: contain; display: block; }
+  .portada .firma { margin-top: 6mm; font-size: 12pt; color: #DCE4F5; }
+  .blob { position: absolute; right: -40mm; top: -30mm; width: 120mm; height: 120mm; border-radius: 50%; background: var(--naranja-claro); opacity: 0.9; }
+
+  .indice { list-style: none; padding: 0; margin: 4mm 0 0; counter-reset: c; }
+  .indice li { counter-increment: c; display: flex; gap: 5mm; align-items: baseline; padding: 3.5mm 0; border-bottom: 0.3mm dashed #E6CDB7; font-size: 15pt; }
+  .indice li::before { content: counter(c, decimal-leading-zero); font-family: Montserrat; font-weight: 800; color: var(--naranja); font-size: 13pt; }
+  .caja { background: var(--crema); border-radius: 5mm; padding: 6mm 7mm; margin: 5mm 0; }
+  .caja--azul { background: #E3EAFB; }
+  .caja h3 { margin-top: 0; }
+  ul.check { list-style: none; padding: 0; margin: 2mm 0; }
+  ul.check li { padding-left: 7mm; position: relative; margin-bottom: 2mm; }
+  ul.check li::before { content: "✓"; position: absolute; left: 0; color: var(--azul); font-weight: 700; }
+  ul.casillas li::before { content: "☐"; color: var(--naranja); }
+
+  .proceso { display: grid; grid-template-columns: 1fr; gap: 2.6mm; margin-top: 2mm; }
+  .paso { display: grid; grid-template-columns: 11mm 1fr 36mm; gap: 4mm; align-items: center; border: 0.4mm solid #E6CDB7; border-radius: 4mm; padding: 2.6mm 4mm; }
+  .paso b.n { width: 10mm; height: 10mm; border-radius: 50%; background: var(--naranja); color: var(--marino); display: grid; place-items: center; font-family: Montserrat; font-size: 11pt; }
+  .paso h3 { margin: 0 0 0.8mm; font-size: 11.5pt; }
+  .paso p { margin: 0; font-size: 12.5pt; line-height: 1.25; color: var(--suave); }
+  .paso img { width: 36mm; height: 20mm; object-fit: contain; background: #fff; }
+
+  table { width: 100%; border-collapse: collapse; margin: 3mm 0 4mm; font-size: 13pt; }
+  th { font-family: Montserrat; font-size: 10pt; text-transform: uppercase; letter-spacing: 0.04em; text-align: left; background: var(--marino); color: #fff; padding: 3mm 3.5mm; }
+  td { padding: 3mm 3.5mm; border-bottom: 0.3mm solid #E6CDB7; vertical-align: top; }
+  tr:nth-child(even) td { background: #FFF8F1; }
+  .nota { font-size: 11.5pt; color: var(--suave); }
+  .contacto { background: var(--marino); color: #fff; }
+  .contacto h2 { color: #fff; }
+  .contacto p, .contacto li { color: #DCE4F5; }
+  .contacto strong { color: #fff; }
+  .contacto .dato { font-size: 16pt; margin: 3mm 0; }
+  .contacto ul.check li::before { color: var(--naranja); }
+  .contacto .cta { display: inline-block; margin-top: 8mm; background: var(--naranja); color: var(--marino); font-family: Montserrat; font-weight: 800; padding: 4mm 8mm; border-radius: 20mm; text-decoration: none; font-size: 13pt; }
+</style>
+</head>
+<body>
+
+<!-- 1. PORTADA -->
+<section class="pagina portada">
+  <div class="blob"></div>
+  <div class="logo"><img src="../assets/logo-blotta.png" alt="Blotta – Tecnología Alimentaria"></div>
+  <div class="etiqueta">Guía gratuita para productores</div>
+  <h1>De la producción manual a la <span>industrial</span></h1>
+  <p class="bajada">Cómo saber cuándo automatizar, qué máquina necesitás para cada etapa y qué tener en cuenta antes de invertir.</p>
+  <div class="foto"><img src="../assets/fotos/conformadora-mce.jpg" alt="Conformadora de empanadas Blotta MCE"></div>
+  <p class="firma">Blotta – Tecnología Alimentaria · Rosario, Argentina · Desde 1995</p>
+</section>
+
+<!-- 2. ÍNDICE + INTRO -->
+<section class="pagina">
+  <h2>Qué vas a encontrar</h2>
+  <ol class="indice">
+    <li>¿Llegó el momento de automatizar?</li>
+    <li>El proceso completo, etapa por etapa</li>
+    <li>¿Tapas o empanadas? Elegí según tu producto</li>
+    <li>Cuánto podés producir con cada equipo</li>
+    <li>Checklist antes de comprar</li>
+    <li>Cómo te acompaña Blotta</li>
+  </ol>
+  <div class="caja" style="margin-top:10mm">
+    <h3>Para quién es esta guía</h3>
+    <p>Para fábricas de alimentos, rotiserías y franquicias que hoy producen empanadas, tapas o masas a mano (o con equipos sueltos) y quieren crecer sin perder la calidad ni el sabor de su receta.</p>
+    <p style="margin:0">La escribimos con más de 30 años de experiencia diseñando y fabricando maquinaria para la industria alimentaria en Rosario.</p>
+  </div>
+  <div class="pie"><span>Guía Blotta para productores</span><span>2</span></div>
+</section>
+
+<!-- 3. CUÁNDO AUTOMATIZAR -->
+<section class="pagina">
+  <h2>01 · ¿Llegó el momento de automatizar?</h2>
+  <p>Automatizar no es solo producir más rápido. Es producir <strong>siempre igual</strong>: el mismo peso, la misma forma y la misma calidad en cada unidad, sin depender del cansancio o la experiencia de cada persona.</p>
+  <h3>Señales de que tu producción manual llegó a su techo</h3>
+  <ul class="check">
+    <li>Rechazás pedidos (o tardás en entregarlos) porque no das abasto.</li>
+    <li>El peso y el tamaño de cada unidad varían según quién la hizo.</li>
+    <li>Sumar personal ya no aumenta la producción en la misma proporción.</li>
+    <li>Querés vender a cadenas, franquicias o exportar, y te piden volumen y peso exacto.</li>
+    <li>Tu equipo pasa buena parte del día en tareas repetitivas como cortar discos o harinar la masa.</li>
+  </ul>
+  <div class="caja caja--azul">
+    <h3>Lo que gana tu planta</h3>
+    <ul class="check" style="margin:0">
+      <li><strong>Volumen sostenido:</strong> producción continua, turno tras turno.</li>
+      <li><strong>Peso exacto:</strong> dosificación y control de peso automáticos, con descarte de las unidades fuera de rango.</li>
+      <li><strong>Menos costos:</strong> menos desperdicio de masa, harina y film de envasado.</li>
+      <li><strong>Más seguridad e higiene:</strong> acero inoxidable, paradas de emergencia y menos manipulación del alimento.</li>
+    </ul>
+  </div>
+  <p class="nota">Consejo: no hace falta automatizar todo de una vez. Los equipos Blotta son modulares, así que podés empezar por la etapa que hoy es tu cuello de botella y sumar el resto a medida que crecés.</p>
+  <div class="pie"><span>Guía Blotta para productores</span><span>3</span></div>
+</section>
+
+<!-- 4. PROCESO -->
+<section class="pagina">
+  <h2>02 · El proceso, etapa por etapa</h2>
+  <p>Así se arma una línea industrial completa. Cada etapa tiene su equipo; podés tenerlos todos o solo los que necesites.</p>
+  <div class="proceso">
+    <div class="paso"><b class="n">1</b><div><h3>Mezclado</h3><p>Mezcladoras con dosificación automática de harina y agua. Modelos de 25 kg cada 15 min hasta 1.500 kg/h.</p></div><img src="../assets/fotos/mezcladora-m70.jpg" alt=""></div>
+    <div class="paso"><b class="n">2</b><div><h3>Formado de la hoja</h3><p>El formador convierte la masa (y los recortes) en una lámina lisa de 600 mm. Hasta 3.600 kg/h.</p></div><img src="../assets/fotos/formador-hoja.jpg" alt=""></div>
+    <div class="paso"><b class="n">3</b><div><h3>Cruzado</h3><p>El cruzador pliega la masa dos veces para darle más liga y elasticidad.</p></div><img src="../assets/fotos/cruzador.jpg" alt=""></div>
+    <div class="paso"><b class="n">4</b><div><h3>Laminado y harinado</h3><p>Módulos de laminación llevan la masa al espesor exacto; el harinador espolvorea harina pareja, sin nubes.</p></div><img src="../assets/fotos/laminadora-tlc400.jpg" alt=""></div>
+    <div class="paso"><b class="n">5</b><div><h3>Corte o conformado</h3><p>Cortadoras de tapas (discos apilados con separador) o conformadoras que arman la empanada completa.</p></div><img src="../assets/fotos/cortadora-ce1.jpg" alt=""></div>
+    <div class="paso"><b class="n">6</b><div><h3>Control de peso</h3><p>El módulo de pesaje descarta automáticamente las unidades fuera del rango programado.</p></div><img src="../assets/fotos/pesaje.jpg" alt=""></div>
+    <div class="paso"><b class="n">7</b><div><h3>Envasado</h3><p>Envasadora flow pack: solo funciona cuando detecta producto, así no desperdicia film.</p></div><img src="../assets/fotos/envasadora.jpg" alt=""></div>
+  </div>
+  <div class="pie"><span>Guía Blotta para productores</span><span>4</span></div>
+</section>
+
+<!-- 5. TAPAS O EMPANADAS -->
+<section class="pagina">
+  <h2>03 · ¿Tapas o empanadas?</h2>
+  <p>La primera decisión es qué vendés, porque define el corazón de tu línea.</p>
+  <div class="caja">
+    <h3>Si vendés tapas (discos para empanadas o tartas)</h3>
+    <p>Tu equipo central es una <strong>cortadora de láminas</strong>. Corta cada disco con su separador y los apila en la cantidad que programes, listos para envasar. Los cabezales se cambian para diámetros de 80 a 320 mm, y el sobrante de masa y film se separa solo.</p>
+    <p style="margin:0">Es el invento que dio origen a Blotta: <strong>Claudio Blotta</strong> desarrolló la máquina para cortar discos de empanadas con separadores individuales.</p>
+  </div>
+  <div class="caja caja--azul">
+    <h3>Si vendés empanadas armadas</h3>
+    <p style="margin:0">Tu equipo central es una <strong>conformadora</strong>. Trabaja directo sobre la lámina, sin cortar discos antes: calibra la masa, dosifica el relleno, dobla, estampa y corta. Los cabezales se cambian para distintos tamaños y formas.</p>
+  </div>
+  <h3>Antes de decidir, respondé estas preguntas</h3>
+  <ul class="check">
+    <li>¿Cuántas unidades (o docenas) necesitás por hora hoy? ¿Y dentro de dos años?</li>
+    <li>¿Cuántos formatos o tamaños distintos producís?</li>
+    <li>¿Tus rellenos son cremosos, húmedos o con trozos?</li>
+    <li>¿Vendés fresco, congelado o envasado para góndola?</li>
+  </ul>
+  <p class="nota">Con esas respuestas, un asesor de Blotta puede recomendarte la configuración justa para tu volumen y tu receta.</p>
+  <div class="pie"><span>Guía Blotta para productores</span><span>5</span></div>
+</section>
+
+<!-- 6. CAPACIDADES -->
+<section class="pagina">
+  <h2>04 · Cuánto podés producir</h2>
+  <p>Producción aproximada de cada equipo según el catálogo Blotta. Los valores reales dependen de las características de tu producto.</p>
+  <table>
+    <thead><tr><th>Equipo</th><th>Modelos</th><th>Producción aproximada</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Cortadora de tapas</strong></td><td>CE1 (emprendedores)</td><td>500 docenas/h</td></tr>
+      <tr><td></td><td>CCS1 · CCS2 (con film)</td><td>800 a 2.000 docenas/h</td></tr>
+      <tr><td></td><td>RT (sin film)</td><td>2.000 a 4.000 docenas/h</td></tr>
+      <tr><td><strong>Conformadora de empanadas</strong></td><td>MCE1 · MCE2</td><td>2.000 a 4.000 unidades/h</td></tr>
+      <tr><td><strong>Formador de hoja</strong></td><td>FH200 · FH600</td><td>800 a 3.600 kg/h</td></tr>
+      <tr><td><strong>Mezcladora</strong></td><td>M25 a MZ1500</td><td>25 kg cada 15 min a 1.500 kg/h</td></tr>
+      <tr><td><strong>Envasadora flow pack</strong></td><td>—</td><td>unos 45 paquetes/min (producto de 125 mm)</td></tr>
+    </tbody>
+  </table>
+  <div class="caja">
+    <h3>Cómo leer la tabla</h3>
+    <p style="margin:0">Elegí el equipo central por tu <strong>meta de producción</strong>, no por tu volumen de hoy: una máquina que trabaja siempre al límite se desgasta más y no te deja crecer. Después, el resto de la línea (mezcla, laminado, envasado) se dimensiona para acompañar a ese equipo central.</p>
+  </div>
+  <div class="pie"><span>Guía Blotta para productores</span><span>6</span></div>
+</section>
+
+<!-- 7. CHECKLIST -->
+<section class="pagina">
+  <h2>05 · Checklist antes de comprar</h2>
+  <p>Repasá esta lista antes de pedir tu presupuesto. Te va a ahorrar tiempo y sorpresas.</p>
+  <h3>Instalación</h3>
+  <ul class="check casillas">
+    <li><strong>Energía trifásica:</strong> los equipos industriales Blotta son trifásicos. Confirmá que tu planta la tenga o consultá con un electricista.</li>
+    <li><strong>Aire comprimido:</strong> varios equipos (conformadoras, cortadoras, pesaje) usan cilindros neumáticos.</li>
+    <li><strong>Espacio:</strong> medí el lugar, incluyendo circulación para operarios, limpieza y carga de masa.</li>
+  </ul>
+  <h3>Producto y proceso</h3>
+  <ul class="check casillas">
+    <li>Tenés definida tu receta de masa y tus rellenos (la máquina se ajusta a tu producto).</li>
+    <li>Sabés tus formatos: diámetros de tapa, tamaños y formas de empanada.</li>
+    <li>Pensaste cómo vas a envasar y conservar (fresco, congelado, flow pack).</li>
+  </ul>
+  <h3>Equipo y respaldo</h3>
+  <ul class="check casillas">
+    <li>Hay una persona responsable de la máquina en cada turno.</li>
+    <li>Está prevista la capacitación de los operarios en la puesta en marcha.</li>
+    <li>Sabés a quién llamar para soporte técnico y repuestos.</li>
+    <li>Tenés un plan de limpieza diaria acorde a las buenas prácticas de manufactura.</li>
+  </ul>
+  <div class="pie"><span>Guía Blotta para productores</span><span>7</span></div>
+</section>
+
+<!-- 8. CONTACTO -->
+<section class="pagina contacto">
+  <h2>06 · Cómo te acompaña Blotta</h2>
+  <ul class="check" style="font-size:15pt">
+    <li><strong>Asesoramiento personalizado</strong> para elegir la configuración según tu volumen y tu receta, con especialistas en masas y rellenos.</li>
+    <li><strong>Diseño y fabricación propios</strong> en Rosario, con ingeniería que responde a normas internacionales.</li>
+    <li><strong>Capacitación</strong> para tus operarios en la puesta en marcha.</li>
+    <li><strong>Soporte técnico</strong> del mismo equipo que diseña las máquinas.</li>
+    <li><strong>Envíos y exportación:</strong> nuestros principales mercados están en América y Europa.</li>
+  </ul>
+  <h3 style="color:#FEBB56;margin-top:14mm">Pedí tu presupuesto</h3>
+  <p class="dato">WhatsApp: <strong>+54 9 341 514-9132</strong></p>
+  <p class="dato">Teléfono: <strong>+54 9 341 267-0269</strong></p>
+  <p class="dato">Email: <strong>administracionventas@blotta.com.ar</strong></p>
+  <p class="dato">Dirección: <strong>México 303, Rosario, Santa Fe</strong></p>
+  <a class="cta" href="https://blotta-tecnologia-alimentaria.netlify.app/#presupuesto">Pedir presupuesto online →</a>
+  <div class="pie" style="color:#DCE4F5;border-color:rgba(255,255,255,.2)"><span>Blotta – Tecnología Alimentaria</span><span>8</span></div>
+</section>
+
+</body>
+</html>

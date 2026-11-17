@@ -1229,3 +1229,8 @@ body.escribiendo .flotantes, body.escribiendo .arriba { opacity: 0; pointer-even
 :root[data-tema="oscuro"] ::selection { background: var(--naranja); color: #0B1A3A; }
 
 .modal__foto .foto { aspect-ratio: 16 / 10; border-radius: 16px; }
+
+/* Fotos de máquina sobre fondo blanco: se ven enteras, sin zoom ni recorte */
+img.foto--entera { object-fit: contain; background: #fff; padding: 10px; }
+.maquina--linea img.foto--entera { padding: 20px; }
+.exito .btn svg { color: currentColor; }
