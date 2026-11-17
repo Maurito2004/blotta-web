@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!-- publicado automaticamente desde GitHub (prueba 2026-11-16) -->
 <html lang="es-AR">
 <head>
   <meta charset="UTF-8">
@@ -100,12 +99,7 @@
           </div>
 
           <div class="hero__media anim" style="--d:180ms">
-            <!-- REEMPLAZAR: foto real de la planta o de una línea en funcionamiento.
-                 Ej: <img class="foto" src="assets/fotos/planta.jpg" alt="Línea de producción Blotta en funcionamiento" width="1200" height="960"> -->
-            <div class="foto" role="img" aria-label="Espacio para la foto de la planta de Blotta">
-              <i data-lucide="factory" aria-hidden="true"></i>
-              <span class="foto__texto">Foto de planta · próximamente</span>
-            </div>
+            <img class="foto" src="assets/fotos/conformadora.jpg" alt="Conformadora de empanadas Blotta MCE1 produciendo empanadas" width="1200" height="500" style="object-position:38% 50%" fetchpriority="high">
             <div class="hero__logo-card">
               <img src="assets/logo-blotta.jpg" alt="" width="1043" height="294">
             </div>
@@ -119,19 +113,22 @@
       <div class="contenedor">
         <div class="cabecera-seccion reveal">
           <h2 class="titulo" id="maquinas-titulo">Nuestras máquinas</h2>
-          <p class="bajada">Líneas completas y equipos individuales para producir empanadas y masas a escala industrial. Elegí una categoría, mirá los detalles y cotizá la que necesitás.</p>
+          <p class="bajada">Equipos para cada etapa de la producción: desde la mezcla de la masa hasta el envasado. Elegí una etapa, mirá los detalles y cotizá la que necesitás.</p>
         </div>
 
         <div class="filtros" role="group" aria-label="Filtrar máquinas por categoría" id="filtros">
           <button class="filtro" type="button" data-filtro="todas" aria-pressed="true">Todas</button>
-          <button class="filtro" type="button" data-filtro="lineas" aria-pressed="false">Líneas automáticas</button>
-          <button class="filtro" type="button" data-filtro="conformadoras" aria-pressed="false">Conformadoras y laminadoras</button>
-          <button class="filtro" type="button" data-filtro="complementarios" aria-pressed="false">Equipos complementarios</button>
+          <button class="filtro" type="button" data-filtro="masa" aria-pressed="false">Preparación de masa</button>
+          <button class="filtro" type="button" data-filtro="conformado" aria-pressed="false">Corte y conformado</button>
+          <button class="filtro" type="button" data-filtro="final" aria-pressed="false">Pesaje y envasado</button>
         </div>
         <p class="filtros__conteo" id="conteo" aria-live="polite"></p>
 
         <!-- Las tarjetas se generan desde el array MAQUINAS en main.js -->
         <div class="grilla-maquinas" id="grilla-maquinas"></div>
+        <p class="catalogo-pdf reveal">
+          <a class="btn btn--borde" href="assets/catalogo-blotta.pdf" download>Descargá el catálogo completo (PDF) <i data-lucide="download" aria-hidden="true"></i></a>
+        </p>
       </div>
     </section>
 
@@ -149,12 +146,7 @@
             <p>No vendemos al consumidor final: diseñamos y fabricamos la maquinaria de producción para empresas de carácter industrial, y las acompañamos desde la elección del equipo hasta la puesta en marcha.</p>
           </div>
           <div class="nosotros__media reveal" style="--d:120ms">
-            <!-- REEMPLAZAR: foto real del edificio de Blotta en Rosario.
-                 Ej: <img class="foto" src="assets/fotos/edificio.jpg" alt="Edificio de Blotta en Rosario" width="1000" height="800"> -->
-            <div class="foto foto--clara" role="img" aria-label="Espacio para la foto del edificio de Blotta">
-              <i data-lucide="building-2" aria-hidden="true"></i>
-              <span class="foto__texto">Foto del edificio · próximamente</span>
-            </div>
+            <img class="foto" src="assets/fotos/capacitacion.jpg" alt="Capacitación de Blotta a un equipo de producción con la conformadora MCE1" width="1200" height="675" loading="lazy" decoding="async">
           </div>
         </div>
 
@@ -481,11 +473,10 @@
           </a>
           <p>Maquinaria industrial para la producción de empanadas y masas. Desde 1995.</p>
           <div class="redes" aria-label="Redes sociales">
-            <!-- REEMPLAZAR: links reales de redes -->
-            <a href="#" aria-label="LinkedIn de Blotta"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg></a>
-            <a href="#" aria-label="Instagram de Blotta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.6" cy="6.4" r="1" fill="currentColor"/></svg></a>
-            <a href="#" aria-label="Facebook de Blotta"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M24 12.07C24 5.4 18.63 0 12 0S0 5.4 0 12.07C0 18.1 4.39 23.1 10.13 24v-8.44H7.08v-3.49h3.05V9.41c0-3.02 1.79-4.69 4.53-4.69 1.31 0 2.68.24 2.68.24v2.97h-1.51c-1.49 0-1.96.93-1.96 1.89v2.25h3.33l-.53 3.49h-2.8V24C19.61 23.1 24 18.1 24 12.07z"/></svg></a>
-            <a href="#" aria-label="YouTube de Blotta"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.6V8.4l6.2 3.6-6.2 3.6z"/></svg></a>
+            <a href="https://www.linkedin.com/in/osvaldo-blotta-901a4a84/" target="_blank" rel="noopener" aria-label="LinkedIn de Blotta"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg></a>
+            <a href="https://www.instagram.com/blottatecnologiaalimentaria_/" target="_blank" rel="noopener" aria-label="Instagram de Blotta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.6" cy="6.4" r="1" fill="currentColor"/></svg></a>
+            <a href="https://www.facebook.com/BlottaTA" target="_blank" rel="noopener" aria-label="Facebook de Blotta"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M24 12.07C24 5.4 18.63 0 12 0S0 5.4 0 12.07C0 18.1 4.39 23.1 10.13 24v-8.44H7.08v-3.49h3.05V9.41c0-3.02 1.79-4.69 4.53-4.69 1.31 0 2.68.24 2.68.24v2.97h-1.51c-1.49 0-1.96.93-1.96 1.89v2.25h3.33l-.53 3.49h-2.8V24C19.61 23.1 24 18.1 24 12.07z"/></svg></a>
+            <a href="https://www.youtube.com/channel/UCwh2Pbo2tewd93d1icCb9Kg" target="_blank" rel="noopener" aria-label="YouTube de Blotta"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.6V8.4l6.2 3.6-6.2 3.6z"/></svg></a>
           </div>
         </div>
         <nav aria-labelledby="f-links">
@@ -508,8 +499,10 @@
         <div>
           <h2>Contacto</h2>
           <ul>
-            <li class="footer__dato"><i data-lucide="map-pin" aria-hidden="true"></i> Rosario, Santa Fe, Argentina</li>
-            <li class="footer__dato"><i data-lucide="message-circle" aria-hidden="true"></i> <a href="#" data-whatsapp>WhatsApp</a></li>
+            <li class="footer__dato"><i data-lucide="map-pin" aria-hidden="true"></i> <a href="https://maps.google.com/?q=M%C3%A9xico+303,+S2007+Rosario,+Santa+Fe" target="_blank" rel="noopener">México 303, Rosario, Santa Fe</a></li>
+            <li class="footer__dato"><i data-lucide="message-circle" aria-hidden="true"></i> <a href="#" data-whatsapp>WhatsApp +54 9 341 514-9132</a></li>
+            <li class="footer__dato"><i data-lucide="phone" aria-hidden="true"></i> <a href="tel:+5493412670269">+54 9 341 267-0269</a></li>
+            <li class="footer__dato"><i data-lucide="mail" aria-hidden="true"></i> <a href="mailto:administracionventas@blotta.com.ar">administracionventas@blotta.com.ar</a></li>
           </ul>
         </div>
       </div>

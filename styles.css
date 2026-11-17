@@ -495,15 +495,17 @@ img.foto { display: block; height: auto; }
 .link-detalle svg { width: 16px; height: 16px; transition: transform 200ms var(--ease-out); }
 @media (hover: hover) and (pointer: fine) { .link-detalle:hover svg { transform: translateX(3px); } }
 
-/* Las líneas automáticas (producto principal) ocupan el doble en escritorio */
-@media (min-width: 1100px) {
-  /* 6 columnas: las 2 líneas ocupan media fila cada una; el resto va de a 3 */
-  .grilla-maquinas { grid-template-columns: repeat(6, 1fr); }
-  .grilla-maquinas > .maquina { grid-column: span 2; }
-  .grilla-maquinas > .maquina--linea { grid-column: span 3; display: grid; grid-template-columns: 1fr 1fr; }
-  .maquina--linea .foto { aspect-ratio: auto; height: 100%; min-height: 100%; }
-  .maquina--linea .maquina__nombre { font-size: 1.35rem; }
+/* La máquina destacada (conformadora) ocupa toda la fila; el resto va de a 4 en escritorio */
+.grilla-maquinas > .maquina--linea { grid-column: 1 / -1; }
+@media (min-width: 700px) {
+  .grilla-maquinas > .maquina--linea { display: grid; grid-template-columns: 1.3fr 1fr; }
+  .maquina--linea .foto { aspect-ratio: auto; height: 100%; min-height: 280px; }
+  .maquina--linea .maquina__nombre { font-size: 1.5rem; }
 }
+@media (min-width: 1100px) {
+  .grilla-maquinas { grid-template-columns: repeat(4, 1fr); }
+}
+.catalogo-pdf { margin-top: 32px; display: flex; justify-content: center; }
 
 .vacio {
   grid-column: 1 / -1;

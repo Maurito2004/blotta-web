@@ -7,122 +7,136 @@
 
 /* ---------- 1. Constantes para reemplazar ---------- */
 
-// REEMPLAZAR: número real de WhatsApp (formato internacional, sin + ni espacios).
-const WHATSAPP_NUMERO = '549XXXXXXXXXX';
+// WhatsApp de Blotta (formato internacional, sin + ni espacios). Fuente: blotta.com.ar
+const WHATSAPP_NUMERO = '5493415149132';
 const WHATSAPP_MENSAJE = 'Hola Blotta, quiero hacer una consulta sobre sus máquinas.';
 
 // Email de Recursos Humanos para las búsquedas laborales
 const EMAIL_RRHH = 'blottaindustriasrrhh@gmail.com';
 
 /* ---------- 2. Datos del catálogo ----------
-   Para cargar los datos reales, editá este array.
-   - categoria: 'lineas' | 'conformadoras' | 'complementarios'
-   - imagen: ruta a la foto real (ej. 'assets/fotos/linea.jpg'). Vacío = placeholder.
-   - video: ID de YouTube (lo que va después de "v=" en el link). Vacío = placeholder.
-   - specs: DATOS DE EJEMPLO, reemplazar por los reales. */
+   Fuente: catálogo oficial de blotta.com.ar (textos reescritos, datos técnicos reales).
+   - categoria: 'masa' | 'conformado' | 'final' (orden del proceso de producción)
+   - destacada: true = tarjeta ancha (el producto estrella)
+   - imagen / ancho / alto: foto real en assets/fotos. encuadre: qué parte de la foto
+     se ve en la tarjeta (object-position).
+   - video: ID de YouTube (lo que va después de "v=" en el link). Vacío = sin video. */
 const MAQUINAS = [
   {
-    id: 'linea-empanadas',
-    nombre: 'Línea automática de empanadas',
-    categoria: 'lineas',
-    icono: 'factory',
-    imagen: '', // REEMPLAZAR: foto real
-    video: '',  // REEMPLAZAR: ID de video de YouTube
-    descripcion: 'Laminado, cortado, dosificado y repulgado en una sola línea continua.',
-    detalle: 'Integra todas las etapas de producción en un flujo continuo: la masa entra laminada y salen empanadas listas para hornear o congelar. Pensada para plantas que producen para distribución y exportación.',
-    caracteristicas: ['Producción continua con un solo operario por turno', 'Moldes intercambiables para distintos formatos', 'Estructura de acero inoxidable apta alimentaria'],
-    specs: { 'Producción': 'hasta 3.000 u/h', 'Peso por unidad': '40 – 120 g', 'Consumo': '7,5 kW' }
-  },
-  {
-    id: 'linea-tapas',
-    nombre: 'Línea automática de tapas y discos',
-    categoria: 'lineas',
-    icono: 'circle-dot',
-    imagen: '',
-    video: '',
-    descripcion: 'Produce y apila discos de masa para empanadas y pascualinas.',
-    detalle: 'Lamina, corta y apila tapas con separador, listas para envasar. Ideal para fábricas que venden tapas al mercado minorista o abastecen a franquicias.',
-    caracteristicas: ['Apilado automático con separador', 'Diámetros configurables', 'Recuperación de recortes de masa'],
-    specs: { 'Producción': 'hasta 6.000 discos/h', 'Diámetro': '10 – 32 cm', 'Consumo': '5,5 kW' }
-  },
-  {
     id: 'conformadora',
-    nombre: 'Conformadora de empanadas',
-    categoria: 'conformadoras',
+    nombre: 'Conformadoras de empanadas',
+    categoria: 'conformado',
+    destacada: true,
     icono: 'settings-2',
-    imagen: '',
+    imagen: 'assets/fotos/conformadora.jpg', ancho: 1200, alto: 500, encuadre: '62% 60%',
     video: '',
-    descripcion: 'Cierra y da forma a cada empanada con terminación pareja.',
-    detalle: 'Recibe el disco con relleno y lo cierra con forma y presión constantes, para que cada unidad salga igual. Se puede usar sola o integrada a una línea.',
-    caracteristicas: ['Formato de repulgue configurable', 'Cambio de molde sin herramientas', 'Bajo nivel de ruido'],
-    specs: { 'Producción': 'hasta 1.800 u/h', 'Peso por unidad': '40 – 100 g', 'Consumo': '2,2 kW' }
+    descripcion: 'Dosifican el relleno, doblan, estampan y cortan cada empanada a partir de una lámina de masa.',
+    detalle: 'Trabajan directo sobre la lámina, sin cortar discos antes: calibran la masa, la cortan a lo ancho, dosifican el relleno, doblan, estampan y cortan. Son modulares, así que se adaptan al nivel de automatización y producción de cada planta. Cabezales cambiables para distintos tamaños y formas.',
+    caracteristicas: ['No necesitan discos precortados', 'Cabezales cambiables para distintos tamaños y formas', 'Tolvas para dosificar el relleno', 'Comandos manuales y automáticos por PLC', 'Acero inoxidable y parada de emergencia'],
+    specs: { 'Modelos': 'MCE1 (mediana) · MCE2 (alta producción)', 'Producción': '2.000 a 4.000 empanadas/h', 'Alimentación': 'Trifásica' }
   },
   {
-    id: 'laminadora',
-    nombre: 'Laminadora de masa',
-    categoria: 'conformadoras',
+    id: 'mezcladora',
+    nombre: 'Mezcladoras',
+    categoria: 'masa',
+    icono: 'blend',
+    imagen: 'assets/fotos/mezcladora.jpg', ancho: 1200, alto: 407, encuadre: '50% 50%',
+    video: '',
+    descripcion: 'Preparan la masa con dosificación automática de harina y agua.',
+    detalle: 'El primer paso de la producción. Dosifican la harina o premezcla con tolva volumétrica y el agua con bomba peristáltica, y controlan el tiempo de mezclado de forma automática. Hay modelos desde 25 kg hasta 1.500 kg de masa por hora.',
+    caracteristicas: ['Tiempo de mezclado regulado automáticamente', 'Bomba peristáltica para dosificar el agua', 'Tolva volumétrica para harina o premezcla', 'Panel de comandos con pantalla táctil', 'Descarga manual, hidráulica o por compuerta neumática según modelo'],
+    specs: { 'Modelos': 'M25 · M70 · M210 · M280 · MZ1500', 'Producción': 'Hasta 1.500 kg/h', 'Alimentación': 'Trifásica' }
+  },
+  {
+    id: 'formador-hoja',
+    nombre: 'Formadores de hoja',
+    categoria: 'masa',
     icono: 'layers',
-    imagen: '',
+    imagen: 'assets/fotos/formador-hoja.jpg', ancho: 1200, alto: 402, encuadre: '45% 50%',
     video: '',
-    descripcion: 'Lamina la masa al espesor exacto, sin romper su estructura.',
-    detalle: 'Rodillos regulables para lograr un espesor uniforme en masas de empanadas, tartas y hojaldres. Mantiene la textura de la receta tradicional.',
-    caracteristicas: ['Regulación fina de espesor', 'Rodillos desmontables para limpieza', 'Cinta de entrada y salida'],
-    specs: { 'Ancho de laminado': '50 cm', 'Espesor': '0,5 – 20 mm', 'Consumo': '1,5 kW' }
+    descripcion: 'Forman una lámina de masa lisa y pareja a partir de grumos o recortes.',
+    detalle: 'La masa fresca o los recortes se descargan en la tolva y salen como una hoja de 600 mm de ancho, con las dos caras lisas y la misma tensión. Una cuchilla corta las láminas al largo que necesites.',
+    caracteristicas: ['Aprovecha los recortes de masa', 'Dos pares de cilindros de 270 mm con terminación blasting mate', 'Volcador automático para cargar la masa', 'Comandos manuales y automáticos por PLC'],
+    specs: { 'Modelos': 'FH200 · FH600', 'Producción': '800 a 3.600 kg/h', 'Ancho de lámina': '600 mm' }
   },
   {
-    id: 'cortadora-discos',
-    nombre: 'Cortadora de discos',
-    categoria: 'conformadoras',
+    id: 'cruzador',
+    nombre: 'Cruzadores de masa',
+    categoria: 'masa',
+    icono: 'shuffle',
+    imagen: 'assets/fotos/cruzador.jpg', ancho: 674, alto: 237, encuadre: '50% 50%',
+    video: '',
+    descripcion: 'Cruzan la masa dos veces para darle mejor liga y elasticidad.',
+    detalle: 'Cinco módulos con tres calibradores, seis cintas transportadoras y dos carritos de vaivén que cruzan la masa dos veces. Cada módulo tiene su propio tablero y velocidades independientes.',
+    caracteristicas: ['Doble cruce de masa', 'Velocidades variables e independientes', 'Tablero individual por módulo', 'Parada de emergencia'],
+    specs: { 'Ancho de masa': '600 mm', 'Calibradores': '3 de 100 mm de diámetro', 'Alimentación': 'Trifásica' }
+  },
+  {
+    id: 'laminacion',
+    nombre: 'Módulos de laminación',
+    categoria: 'masa',
+    icono: 'gallery-horizontal',
+    imagen: 'assets/fotos/laminacion.jpg', ancho: 1200, alto: 406, encuadre: '45% 40%',
+    video: '',
+    descripcion: 'Laminan la masa al espesor exacto. Se combinan para armar un tren de laminado.',
+    detalle: 'Rodillos revestidos en cromo duro que abren y cierran de 0 a 45 mm. Espesor y velocidades se programan por PLC y se ven en pantalla. Varios módulos se unen con cintas sanitarias para formar un tren de laminado completo.',
+    caracteristicas: ['Espesor y velocidad programables', 'Rodillos de 180 o 400 mm en cromo duro', 'Cobertura de acero inoxidable', 'Se conectan entre sí para formar un tren de laminado'],
+    specs: { 'Modelos': 'EL 180 · TLC400', 'Ancho de trabajo': '600 mm', 'Apertura de rodillos': '0 a 45 mm' }
+  },
+  {
+    id: 'harinador',
+    nombre: 'Harinadores',
+    categoria: 'masa',
+    icono: 'wheat',
+    imagen: 'assets/fotos/harinador.jpg', ancho: 1200, alto: 400, encuadre: '67% 50%',
+    video: '',
+    descripcion: 'Espolvorean harina de forma pareja y automática. Ahorran harina y cuidan al operario.',
+    detalle: 'Se montan sobre sobadoras, laminadoras o trenes de laminado y se pueden pasar de una máquina a otra. Evitan las nubes de harina en la planta y que el operario tenga que emparejarla a mano cerca de los rodillos.',
+    caracteristicas: ['Aplicación homogénea y constante', 'Menos harina desperdiciada', 'Sin nubes de harina en el ambiente', 'Desmontable y trasladable'],
+    specs: { 'Versiones': '3 modelos', 'Se monta en': 'Sobadoras y laminadoras' }
+  },
+  {
+    id: 'cortadora',
+    nombre: 'Cortadoras de tapas',
+    categoria: 'conformado',
     icono: 'disc-3',
-    imagen: '',
-    video: '',
-    descripcion: 'Corta discos de masa uniformes y reduce el desperdicio.',
-    detalle: 'Corte rotativo de alta precisión para obtener discos idénticos. El diseño de los moldes aprovecha al máximo la lámina de masa.',
-    caracteristicas: ['Moldes de distintos diámetros', 'Aprovechamiento optimizado de la lámina', 'Protecciones de seguridad'],
-    specs: { 'Producción': 'hasta 4.000 discos/h', 'Diámetro': '8 – 20 cm', 'Consumo': '1,1 kW' }
+    imagen: 'assets/fotos/cortadora.jpg', ancho: 1200, alto: 460, encuadre: '35% 50%',
+    video: 'DWAtu0D1YCU',
+    descripcion: 'Cortan discos para empanadas y tartas y los apilan con su separador.',
+    detalle: 'El invento de Claudio Blotta: cuchillas rotativas cortan cada disco con su separador y los apilan en la cantidad que programes. La masa y el film sobrantes se separan solos. Cabezales para diámetros de 80 a 320 mm.',
+    caracteristicas: ['Apilado programable con separador', 'Separación automática de masa y film sobrantes', 'Tractor de film para usar separadores más finos y bajar costos', 'Modelo CE1 para pequeños emprendedores'],
+    specs: { 'Modelos': 'CE1 · CCS1 · CCS2 · RT', 'Producción': '500 a 4.000 docenas/h', 'Diámetro': '80 a 320 mm' }
   },
   {
-    id: 'dosificadora',
-    nombre: 'Dosificadora de relleno',
-    categoria: 'complementarios',
-    icono: 'pipette',
-    imagen: '',
+    id: 'pesaje',
+    nombre: 'Módulo de pesaje',
+    categoria: 'final',
+    icono: 'scale',
+    imagen: 'assets/fotos/pesaje.jpg', ancho: 1200, alto: 406, encuadre: '50% 50%',
     video: '',
-    descripcion: 'Deposita la cantidad justa de relleno en cada unidad.',
-    detalle: 'Dosificación volumétrica para rellenos con trozos, cremosos o húmedos. Garantiza el peso exacto y reduce las mermas.',
-    caracteristicas: ['Apta para rellenos con trozos', 'Dosis regulable desde el panel', 'Tolva de acero inoxidable'],
-    specs: { 'Dosis': '10 – 80 g', 'Precisión': '± 1 g', 'Consumo': '0,75 kW' }
+    descripcion: 'Controla el peso de cada producto antes de envasar y descarta los que no cumplen.',
+    detalle: 'Se coordina con la cortadora y la envasadora. Programás el rango de peso y el módulo saca automáticamente los productos que quedan por encima o por debajo.',
+    caracteristicas: ['Rango de peso programable', 'Descarte automático', 'Tres sensores ópticos', 'Comandos por PLC'],
+    specs: { 'Cintas': 'Entrada, salida y descarte', 'Se integra con': 'Cortadora y envasadora' }
   },
   {
-    id: 'repulgadora',
-    nombre: 'Repulgadora',
-    categoria: 'complementarios',
-    icono: 'waves',
-    imagen: '',
-    video: '',
-    descripcion: 'Repulgue con terminación artesanal, a velocidad industrial.',
-    detalle: 'Reproduce el repulgue hecho a mano para que el producto conserve su identidad. Se adapta a distintos formatos de cierre.',
-    caracteristicas: ['Terminación tipo artesanal', 'Formatos de repulgue intercambiables', 'Fácil limpieza'],
-    specs: { 'Producción': 'hasta 1.500 u/h', 'Formatos': '3 tipos de cierre', 'Consumo': '0,9 kW' }
-  },
-  {
-    id: 'cinta',
-    nombre: 'Cinta transportadora',
-    categoria: 'complementarios',
-    icono: 'arrow-right-left',
-    imagen: '',
-    video: '',
-    descripcion: 'Une equipos y lleva el producto entre etapas sin manipularlo.',
-    detalle: 'Cintas sanitarias modulares para conectar laminado, dosificado, cierre y bandejeo. Se fabrican a la medida de tu planta.',
-    caracteristicas: ['Banda sanitaria apta alimentos', 'Largo y velocidad a medida', 'Módulos combinables'],
-    specs: { 'Largo': '1 – 6 m', 'Velocidad': 'regulable', 'Consumo': '0,37 kW' }
+    id: 'envasadora',
+    nombre: 'Envasadora flow pack',
+    categoria: 'final',
+    icono: 'package',
+    imagen: 'assets/fotos/envasadora.jpg', ancho: 1200, alto: 399, encuadre: '60% 50%',
+    video: 'DWAtu0D1YCU',
+    descripcion: 'Envasa en film y solo funciona cuando detecta producto: no desperdicia film.',
+    detalle: 'Un sensor óptico centra cada producto para que coincida con el envase impreso. Después lo sella a lo largo y a lo ancho y lo corta en unidades. Hombros cambiables para envasar distintos productos.',
+    caracteristicas: ['Arranca solo cuando hay producto', 'Centrado óptico sobre el envase impreso', 'Pantalla táctil y control por PLC', 'Hombros cambiables'],
+    specs: { 'Producción': 'Unos 45 paquetes/min', 'Ancho de producto': '80 a 320 mm', 'Film': 'Polipropileno biorientado' }
   }
 ];
 
 const CATEGORIAS = {
-  lineas: 'Línea automática',
-  conformadoras: 'Conformadoras y laminadoras',
-  complementarios: 'Equipo complementario'
+  masa: 'Preparación de masa',
+  conformado: 'Corte y conformado',
+  final: 'Pesaje y envasado'
 };
 
 /* Países para los formularios: Argentina primero, después América y Europa */
@@ -198,7 +212,7 @@ function initHeader() {
 /* ---------- 5. Catálogo con filtros ---------- */
 function htmlImagen(m, clase = '') {
   if (m.imagen) {
-    return `<img class="foto ${clase}" src="${m.imagen}" alt="${escapar(m.nombre)}" loading="lazy">`;
+    return `<img class="foto ${clase}" src="${m.imagen}" alt="${escapar(m.nombre)} de Blotta" width="${m.ancho}" height="${m.alto}" style="object-position:${m.encuadre || '50% 50%'}" loading="lazy" decoding="async">`;
   }
   return `<div class="foto ${clase}" role="img" aria-label="Espacio para la foto de ${escapar(m.nombre)}">
             <i data-lucide="${m.icono}" aria-hidden="true"></i>
@@ -221,14 +235,13 @@ function initCatalogo() {
     const lista = filtro === 'todas' ? MAQUINAS : MAQUINAS.filter((m) => m.categoria === filtro);
     grilla.innerHTML = lista.length
       ? lista.map((m, i) => `
-        <article class="maquina ${m.categoria === 'lineas' ? 'maquina--linea' : ''} reveal" style="--d:${Math.min(i, 5) * 55}ms" aria-labelledby="maq-${m.id}">
+        <article class="maquina ${m.destacada ? 'maquina--linea' : ''} reveal" style="--d:${Math.min(i, 5) * 55}ms" aria-labelledby="maq-${m.id}">
           ${htmlImagen(m)}
           <div class="maquina__cuerpo">
             <span class="chip">${CATEGORIAS[m.categoria]}</span>
             <h3 class="maquina__nombre" id="maq-${m.id}">${escapar(m.nombre)}</h3>
             <p class="maquina__desc">${escapar(m.descripcion)}</p>
             ${htmlSpecs(m.specs)}
-            <span class="nota-ejemplo"><i data-lucide="info" aria-hidden="true"></i> Dato de ejemplo</span>
             <div class="maquina__acciones">
               <button class="btn btn--cta btn--chico" type="button" data-cotizar="${m.id}">Cotizar esta máquina</button>
               <button class="link-detalle" type="button" data-detalle="${m.id}">Ver detalles <i data-lucide="arrow-right" aria-hidden="true"></i></button>
@@ -295,7 +308,7 @@ function abrirDetalle(id, disparador) {
         <div class="video">${video}</div>
         <h3 style="margin-top:20px;margin-bottom:6px">Datos técnicos</h3>
         ${htmlSpecs(m.specs)}
-        <p class="nota-ejemplo" style="margin-top:8px"><i data-lucide="info" aria-hidden="true"></i> Datos de ejemplo: los valores reales dependen de la configuración.</p>
+        <p class="nota-ejemplo" style="margin-top:8px"><i data-lucide="info" aria-hidden="true"></i> Valores aproximados: dependen del producto y la configuración.</p>
         <div class="modal__acciones">
           <button class="btn btn--cta" type="button" data-cotizar-modal="${m.id}">Cotizar esta máquina</button>
         </div>
@@ -665,7 +678,7 @@ function initChatbot() {
   // Acciones (botones rápidos y palabras clave comparten la misma lógica)
   const acciones = {
     maquinas() {
-      responder(`Tenemos ${MAQUINAS.length} equipos: líneas automáticas, conformadoras, laminadoras y equipos complementarios. Te llevo al catálogo 👇`);
+      responder(`Tenemos equipos para cada etapa: mezcladoras, formadores de hoja, laminación, conformadoras de empanadas, cortadoras de tapas, pesaje y envasado. Te llevo al catálogo 👇`);
       setTimeout(() => irASeccion('maquinas'), 900);
     },
     presupuesto() {
@@ -703,7 +716,7 @@ function initChatbot() {
     [/showroom|visita|prueba|conocer la planta/, 'showroom'],
     [/trabajo|empleo|cv|busqueda|postul/, 'trabajo'],
     [/foro|comunidad/, 'foro'],
-    [/maquina|catalogo|linea|laminadora|conformadora|dosificadora|repulg|cinta|cortadora|equipo/, 'maquinas']
+    [/maquina|catalogo|linea|lamina|conformadora|cortadora|tapas|mezcla|harin|cruzad|pesaje|envas|flow|equipo/, 'maquinas']
   ];
 
   const procesar = (texto) => {
