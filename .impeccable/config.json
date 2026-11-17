@@ -1,0 +1,77 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "overused-font",
+        "value": "montserrat",
+        "createdAt": "2026-11-17T00:51:08.711Z",
+        "reason": "user brief: Montserrat is the brand-manual heading font"
+      },
+      {
+        "rule": "cream-palette",
+        "value": "*",
+        "files": [
+          "index.html"
+        ],
+        "createdAt": "2026-11-17T00:51:08.885Z",
+        "reason": "user brief: #FCEADB cream is the brand-manual page background"
+      },
+      {
+        "rule": "pulsing-dot",
+        "value": "*",
+        "files": [
+          "index.html"
+        ],
+        "createdAt": "2026-11-17T00:51:09.103Z",
+        "reason": "chat typing indicator, shown only while the bot 'writes' (literal state, not decoration)"
+      },
+      {
+        "rule": "cream-palette",
+        "value": "*",
+        "files": [
+          "foro.html"
+        ],
+        "createdAt": "2026-11-17T00:51:09.290Z",
+        "reason": "user brief: #FCEADB cream is the brand-manual page background"
+      },
+      {
+        "rule": "pulsing-dot",
+        "value": "*",
+        "files": [
+          "foro.html"
+        ],
+        "createdAt": "2026-11-17T00:51:09.492Z",
+        "reason": "chat typing indicator, shown only while the bot 'writes' (literal state, not decoration)"
+      },
+      {
+        "rule": "cream-palette",
+        "value": "*",
+        "files": [
+          "trabaja-con-nosotros.html"
+        ],
+        "createdAt": "2026-11-17T00:51:09.690Z",
+        "reason": "user brief: #FCEADB cream is the brand-manual page background"
+      },
+      {
+        "rule": "pulsing-dot",
+        "value": "*",
+        "files": [
+          "trabaja-con-nosotros.html"
+        ],
+        "createdAt": "2026-11-17T00:51:09.864Z",
+        "reason": "chat typing indicator, shown only while the bot 'writes' (literal state, not decoration)"
+      },
+      {
+        "rule": "icon-tile-stack",
+        "value": "*",
+        "files": [
+          "index.html"
+        ],
+        "createdAt": "2026-11-17T00:51:10.037Z",
+        "reason": "user brief: 'Valores — 5 tarjetas con ícono' is a required layout"
+      }
+    ]
+  }
+}

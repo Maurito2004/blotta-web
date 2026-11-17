@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Blotta – Tecnología Alimentaria | Maquinaria para empanadas y masas</title>
+  <meta name="description" content="Blotta diseña y fabrica maquinaria industrial para producir empanadas y masas desde Rosario, Argentina, desde 1995. Conocé las máquinas y pedí tu presupuesto.">
+  <meta name="theme-color" content="#123FB3">
+
+  <!-- Open Graph (vista previa al compartir en redes / WhatsApp) -->
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="es_AR">
+  <meta property="og:title" content="Blotta – Tecnología Alimentaria">
+  <meta property="og:description" content="Maquinaria industrial para la producción de empanadas y masas. Más de 30 años de experiencia. Pedí tu presupuesto.">
+  <meta property="og:image" content="assets/logo-blotta.jpg">
+  <!-- REEMPLAZAR: cuando esté publicado, poné la URL absoluta en og:image y agregá og:url -->
+
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+  <!-- Formas decorativas reutilizables (blob de la marca) -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="forma-blob" viewBox="0 0 520 420">
+      <path d="M421 39c62 37 92 121 76 192-16 72-79 131-152 157-73 27-158 20-219-23C65 322 28 245 34 172 40 99 89 32 160 10c71-23 199-8 261 29z"/>
+    </symbol>
+  </svg>
+
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+
+  <!-- ================= HEADER ================= -->
+  <header class="header" id="header">
+    <div class="contenedor header__barra">
+      <a class="header__logo" href="index.html" aria-label="Blotta – Tecnología Alimentaria, inicio">
+        <img src="assets/logo-blotta.jpg" alt="Blotta – Tecnología Alimentaria" width="1043" height="294">
+      </a>
+      <nav class="nav" aria-label="Principal">
+        <ul class="nav__lista">
+          <li><a class="nav__link" href="#inicio">Inicio</a></li>
+          <li><a class="nav__link" href="#maquinas">Máquinas</a></li>
+          <li><a class="nav__link" href="#nosotros">Nosotros</a></li>
+          <li><a class="nav__link" href="foro.html">Foro IA</a></li>
+          <li><a class="nav__link" href="trabaja-con-nosotros.html">Trabajá con nosotros</a></li>
+          <li><a class="nav__link" href="#presupuesto">Contacto</a></li>
+        </ul>
+      </nav>
+      <a class="btn btn--cta btn--chico header__cta" href="#presupuesto">Pedí tu presupuesto</a>
+      <button class="hamburguesa" id="btn-menu" aria-label="Abrir menú" aria-expanded="false" aria-controls="menu-movil">
+        <i data-lucide="menu" aria-hidden="true"></i>
+      </button>
+    </div>
+  </header>
+  <nav class="menu-movil" id="menu-movil" aria-label="Menú móvil" hidden>
+    <ul>
+      <li><a href="#inicio">Inicio</a></li>
+      <li><a href="#maquinas">Máquinas</a></li>
+      <li><a href="#nosotros">Nosotros</a></li>
+      <li><a href="foro.html">Foro IA</a></li>
+      <li><a href="trabaja-con-nosotros.html">Trabajá con nosotros</a></li>
+      <li><a href="#presupuesto">Contacto</a></li>
+    </ul>
+    <a class="btn btn--cta" href="#presupuesto">Pedí tu presupuesto</a>
+  </nav>
+
+  <main id="contenido">
+
+    <!-- ================= 1. HERO ================= -->
+    <section class="hero" id="inicio" aria-labelledby="hero-titulo">
+      <svg class="blob blob--naranja" viewBox="0 0 520 420" style="width:min(46vw,420px);top:40px;right:-120px" aria-hidden="true">
+        <use href="#forma-blob" class="relleno"/>
+        <use href="#forma-blob" class="linea" transform="translate(-26 -22) scale(1.1)"/>
+      </svg>
+      <div class="puntos" style="left:2%;bottom:24px" aria-hidden="true"></div>
+
+      <div class="contenedor">
+        <div class="hero__panel">
+          <svg class="blob blob--marino" viewBox="0 0 520 420" style="width:520px;left:-300px;bottom:-330px" aria-hidden="true">
+            <use href="#forma-blob" class="relleno"/>
+            <use href="#forma-blob" class="linea" transform="translate(-26 -22) scale(1.1)"/>
+          </svg>
+          <div class="puntos puntos--crema" style="right:24px;top:24px" aria-hidden="true"></div>
+
+          <div class="hero__texto">
+            <h1 class="hero__titulo anim" id="hero-titulo">Soluciones en maquinaria para tu <em>producción</em></h1>
+            <p class="hero__bajada anim" style="--d:120ms">Diseñamos y fabricamos máquinas industriales pensadas para mejorar la eficiencia, la calidad y el rendimiento de tu negocio.</p>
+            <div class="hero__acciones anim" style="--d:220ms">
+              <a class="btn btn--cta" href="#maquinas">Ver catálogo de máquinas <i data-lucide="arrow-down" aria-hidden="true"></i></a>
+              <a class="btn btn--claro" href="#presupuesto">Pedir presupuesto</a>
+            </div>
+            <p class="hero__sello anim" style="--d:320ms">
+              <span class="icono-circulo"><i data-lucide="award" aria-hidden="true"></i></span>
+              Pioneros en Tecnologías Alimentarias · +30 años
+            </p>
+          </div>
+
+          <div class="hero__media anim" style="--d:180ms">
+            <!-- REEMPLAZAR: foto real de la planta o de una línea en funcionamiento.
+                 Ej: <img class="foto" src="assets/fotos/planta.jpg" alt="Línea de producción Blotta en funcionamiento" width="1200" height="960"> -->
+            <div class="foto" role="img" aria-label="Espacio para la foto de la planta de Blotta">
+              <i data-lucide="factory" aria-hidden="true"></i>
+              <span class="foto__texto">Foto de planta · próximamente</span>
+            </div>
+            <div class="hero__logo-card">
+              <img src="assets/logo-blotta.jpg" alt="" width="1043" height="294">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 2. CATÁLOGO ================= -->
+    <section class="seccion" id="maquinas" aria-labelledby="maquinas-titulo" style="padding-top:clamp(40px,6vw,72px)">
+      <div class="contenedor">
+        <div class="cabecera-seccion reveal">
+          <h2 class="titulo" id="maquinas-titulo">Nuestras máquinas</h2>
+          <p class="bajada">Líneas completas y equipos individuales para producir empanadas y masas a escala industrial. Elegí una categoría, mirá los detalles y cotizá la que necesitás.</p>
+        </div>
+
+        <div class="filtros" role="group" aria-label="Filtrar máquinas por categoría" id="filtros">
+          <button class="filtro" type="button" data-filtro="todas" aria-pressed="true">Todas</button>
+          <button class="filtro" type="button" data-filtro="lineas" aria-pressed="false">Líneas automáticas</button>
+          <button class="filtro" type="button" data-filtro="conformadoras" aria-pressed="false">Conformadoras y laminadoras</button>
+          <button class="filtro" type="button" data-filtro="complementarios" aria-pressed="false">Equipos complementarios</button>
+        </div>
+        <p class="filtros__conteo" id="conteo" aria-live="polite"></p>
+
+        <!-- Las tarjetas se generan desde el array MAQUINAS en main.js -->
+        <div class="grilla-maquinas" id="grilla-maquinas"></div>
+      </div>
+    </section>
+
+    <!-- ================= 3. NOSOTROS ================= -->
+    <section class="seccion" id="nosotros" aria-labelledby="nosotros-titulo">
+      <svg class="blob" viewBox="0 0 520 420" style="width:min(50vw,440px);right:-240px;top:40px" aria-hidden="true">
+        <use href="#forma-blob" class="relleno"/>
+        <use href="#forma-blob" class="linea" transform="translate(-26 -22) scale(1.1)"/>
+      </svg>
+      <div class="contenedor">
+        <div class="nosotros__grid">
+          <div class="nosotros__texto reveal">
+            <h2 class="titulo" id="nosotros-titulo">¿Qué es Blotta?</h2>
+            <p>Blotta fue fundada en <strong>1995</strong> por el inventor rosarino <strong>Claudio Blotta</strong>. Desde entonces, llevamos <strong>más de 30 años</strong> en la industria alimentaria diseñando soluciones a medida para quienes producen a gran escala.</p>
+            <p>No vendemos al consumidor final: diseñamos y fabricamos la maquinaria de producción para empresas de carácter industrial, y las acompañamos desde la elección del equipo hasta la puesta en marcha.</p>
+          </div>
+          <div class="nosotros__media reveal" style="--d:120ms">
+            <!-- REEMPLAZAR: foto real del edificio de Blotta en Rosario.
+                 Ej: <img class="foto" src="assets/fotos/edificio.jpg" alt="Edificio de Blotta en Rosario" width="1000" height="800"> -->
+            <div class="foto foto--clara" role="img" aria-label="Espacio para la foto del edificio de Blotta">
+              <i data-lucide="building-2" aria-hidden="true"></i>
+              <span class="foto__texto">Foto del edificio · próximamente</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="contadores reveal" aria-label="Blotta en números">
+          <div class="puntos puntos--crema" style="right:16px;bottom:12px" aria-hidden="true"></div>
+          <div class="contador">
+            <span class="contador__numero" data-contar="1995" data-desde="1960">1995</span>
+            <span class="contador__etiqueta">Año de fundación</span>
+          </div>
+          <div class="contador">
+            <span class="contador__numero" data-contar="30" data-prefijo="+">+30</span>
+            <span class="contador__etiqueta">Años de experiencia</span>
+          </div>
+          <div class="contador">
+            <span class="contador__numero" data-contar="40">40</span>
+            <span class="contador__etiqueta">Equipos por año (estimado)</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 4. VALORES ================= -->
+    <section class="seccion" id="valores" aria-labelledby="valores-titulo" style="padding-top:0">
+      <div class="contenedor">
+        <div class="cabecera-seccion reveal">
+          <h2 class="titulo" id="valores-titulo">Nuestros valores</h2>
+        </div>
+        <ul class="valores">
+          <li class="valor reveal">
+            <div class="valor__icono"><i data-lucide="lightbulb" aria-hidden="true"></i></div>
+            <h3>Innovación</h3>
+            <p>Tecnología que impulsa mejores procesos.</p>
+          </li>
+          <li class="valor reveal" style="--d:60ms">
+            <div class="valor__icono"><i data-lucide="badge-check" aria-hidden="true"></i></div>
+            <h3>Calidad</h3>
+            <p>Equipos confiables, precisos y eficaces.</p>
+          </li>
+          <li class="valor reveal" style="--d:110ms">
+            <div class="valor__icono"><i data-lucide="handshake" aria-hidden="true"></i></div>
+            <h3>Compromiso</h3>
+            <p>Acompañamiento en todo el proceso.</p>
+          </li>
+          <li class="valor reveal" style="--d:150ms">
+            <div class="valor__icono"><i data-lucide="graduation-cap" aria-hidden="true"></i></div>
+            <h3>Conocimiento</h3>
+            <p>Experiencia y capacitación para el crecimiento.</p>
+          </li>
+          <li class="valor valor--destacado reveal" style="--d:180ms">
+            <div class="valor__icono"><i data-lucide="globe" aria-hidden="true"></i></div>
+            <h3>Conexión global</h3>
+            <p>Tecnología que cruza fronteras.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ================= 5. ¿PARA QUIÉN ES? ================= -->
+    <section class="seccion para-quien" id="para-quien" aria-labelledby="para-quien-titulo">
+      <div class="contenedor para-quien__grid">
+        <div class="reveal">
+          <h2 class="titulo" id="para-quien-titulo">¿Para quién es?</h2>
+          <p class="bajada">Para empresas que necesitan pasar de la producción manual a escala industrial sin perder la calidad ni la textura de su receta tradicional.</p>
+
+          <div class="mercado">
+            <h3><i data-lucide="trending-up" aria-hidden="true"></i> Un mercado en expansión</h3>
+            <p>El mercado de empanadas y masas congeladas crece de la mano de las franquicias y la exportación. Automatizar te permite:</p>
+            <ul class="beneficios">
+              <li><i data-lucide="check" aria-hidden="true"></i> Sostener altos volúmenes de producción</li>
+              <li><i data-lucide="check" aria-hidden="true"></i> Garantizar el peso exacto de cada unidad</li>
+              <li><i data-lucide="check" aria-hidden="true"></i> Reducir los costos operativos</li>
+            </ul>
+          </div>
+        </div>
+
+        <ul class="audiencias">
+          <li class="audiencia reveal">
+            <span class="audiencia__icono"><i data-lucide="factory" aria-hidden="true"></i></span>
+            <div>
+              <h3>Fábricas de alimentos</h3>
+              <p>Plantas que producen para distribución o exportación y necesitan volumen constante y trazable.</p>
+            </div>
+          </li>
+          <li class="audiencia reveal" style="--d:70ms">
+            <span class="audiencia__icono"><i data-lucide="store" aria-hidden="true"></i></span>
+            <div>
+              <h3>Franquicias gastronómicas</h3>
+              <p>Cadenas que necesitan el mismo producto, con el mismo peso y sabor, en cada local.</p>
+            </div>
+          </li>
+          <li class="audiencia reveal" style="--d:120ms">
+            <span class="audiencia__icono"><i data-lucide="chef-hat" aria-hidden="true"></i></span>
+            <div>
+              <h3>Rotiserías medianas</h3>
+              <p>Negocios que crecieron y quieren dar el salto de la producción manual a la industrial.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ================= 6. POR QUÉ ELEGIRNOS ================= -->
+    <section class="seccion servicios" id="servicios" aria-labelledby="servicios-titulo">
+      <div class="contenedor">
+        <div class="cabecera-seccion cabecera-seccion--centro reveal">
+          <h2 class="titulo titulo--centro" id="servicios-titulo">Por qué elegirnos</h2>
+        </div>
+        <ul class="servicios__lista">
+          <li class="servicio reveal"><span class="servicio__icono"><i data-lucide="messages-square" aria-hidden="true"></i></span><span>Asesoramiento personalizado</span><small>Te recomendamos la configuración según tu volumen y tu receta.</small></li>
+          <li class="servicio reveal" style="--d:50ms"><span class="servicio__icono"><i data-lucide="wrench" aria-hidden="true"></i></span><span>Soporte técnico especializado</span><small>El mismo equipo que diseña la máquina te ayuda a mantenerla.</small></li>
+          <li class="servicio reveal" style="--d:90ms"><span class="servicio__icono"><i data-lucide="book-open" aria-hidden="true"></i></span><span>Capacitación y recursos</span><small>Formación para tus operarios en la puesta en marcha.</small></li>
+          <li class="servicio reveal" style="--d:120ms"><span class="servicio__icono"><i data-lucide="users" aria-hidden="true"></i></span><span>Comunidad de usuarios</span><small>Productores que comparten experiencias en el Foro IA.</small></li>
+          <li class="servicio reveal" style="--d:140ms"><span class="servicio__icono"><i data-lucide="ship" aria-hidden="true"></i></span><span>Envíos y exportación</span><small>Despachamos a todo el país y al exterior.</small></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ================= 7. SHOWROOM Y E-BOOK ================= -->
+    <section class="seccion" id="showroom" aria-label="Showroom y E-Book">
+      <div class="contenedor dos-tarjetas">
+
+        <article class="tarjeta reveal" aria-labelledby="showroom-titulo">
+          <div class="tarjeta__icono"><i data-lucide="calendar-check" aria-hidden="true"></i></div>
+          <h3 id="showroom-titulo">Agendá una prueba en nuestro showroom</h3>
+          <p>Vení a ver las máquinas funcionando con tu propia masa y relleno.</p>
+          <form id="form-showroom" class="form-grid form-grid--2" novalidate>
+            <div class="campo">
+              <label for="sh-nombre">Nombre</label>
+              <input id="sh-nombre" name="nombre" type="text" autocomplete="name" required>
+              <p class="campo__error" id="sh-nombre-error"></p>
+            </div>
+            <div class="campo">
+              <label for="sh-empresa">Empresa</label>
+              <input id="sh-empresa" name="empresa" type="text" autocomplete="organization" required>
+              <p class="campo__error" id="sh-empresa-error"></p>
+            </div>
+            <div class="campo">
+              <label for="sh-fecha">Fecha preferida</label>
+              <input id="sh-fecha" name="fecha" type="date" required>
+              <p class="campo__error" id="sh-fecha-error"></p>
+            </div>
+            <div class="campo">
+              <label for="sh-maquina">Máquina de interés</label>
+              <select id="sh-maquina" name="maquina" required data-opciones-maquinas>
+                <option value="">Elegí una máquina</option>
+              </select>
+              <p class="campo__error" id="sh-maquina-error"></p>
+            </div>
+            <div class="campo--ancho">
+              <button class="btn btn--cta" type="submit">Agendar visita <i data-lucide="arrow-right" aria-hidden="true"></i></button>
+            </div>
+          </form>
+          <div class="exito" id="showroom-exito" role="status" hidden tabindex="-1">
+            <i data-lucide="circle-check" aria-hidden="true"></i>
+            <div><strong>¡Listo! Recibimos tu pedido de visita.</strong>Te escribimos para confirmar el día y el horario.</div>
+          </div>
+        </article>
+
+        <article class="tarjeta tarjeta--destacada reveal" style="--d:100ms" aria-labelledby="ebook-titulo">
+          <div class="tarjeta__icono"><i data-lucide="book-open-text" aria-hidden="true"></i></div>
+          <h3 id="ebook-titulo">Descargá gratis el E&#8209;Book para productores</h3>
+          <p>Una guía práctica para planificar el paso de la producción manual a la industrial.</p>
+          <form id="form-ebook" class="form-grid" novalidate>
+            <div class="campo">
+              <label for="eb-nombre">Nombre</label>
+              <input id="eb-nombre" name="nombre" type="text" autocomplete="name" required>
+              <p class="campo__error" id="eb-nombre-error"></p>
+            </div>
+            <div class="campo">
+              <label for="eb-email">Email</label>
+              <input id="eb-email" name="email" type="email" autocomplete="email" inputmode="email" required>
+              <p class="campo__error" id="eb-email-error"></p>
+            </div>
+            <div class="campo">
+              <label for="eb-pais">País</label>
+              <select id="eb-pais" name="pais" required data-opciones-paises>
+                <option value="">Elegí tu país</option>
+              </select>
+              <p class="campo__error" id="eb-pais-error"></p>
+            </div>
+            <div>
+              <button class="btn btn--cta" type="submit">Descargar E-Book <i data-lucide="download" aria-hidden="true"></i></button>
+            </div>
+          </form>
+          <div class="exito" id="ebook-exito" role="status" hidden tabindex="-1">
+            <i data-lucide="circle-check" aria-hidden="true"></i>
+            <!-- TODO: enlazar el PDF real del E-Book -->
+            <div><strong>¡Gracias! Te enviamos el E-Book por email.</strong>Revisá también la carpeta de spam.</div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ================= 8. PRESUPUESTO ================= -->
+    <section class="seccion" id="presupuesto" aria-labelledby="presupuesto-titulo" style="padding-top:0">
+      <div class="contenedor">
+        <div class="presupuesto__caja reveal">
+          <div class="presupuesto__lado">
+            <svg class="blob" viewBox="0 0 520 420" style="width:360px;right:-200px;bottom:-180px" aria-hidden="true">
+              <use href="#forma-blob" class="relleno"/>
+              <use href="#forma-blob" class="linea" transform="translate(-26 -22) scale(1.1)"/>
+            </svg>
+            <h2 class="titulo titulo--claro" id="presupuesto-titulo">Pedí tu presupuesto</h2>
+            <p>Contanos qué producís y cuánto querés producir. Armamos una propuesta a la medida de tu planta.</p>
+            <ol class="pasos">
+              <li><div><strong>Contanos tu necesidad</strong><span>Completá el formulario en 3 minutos.</span></div></li>
+              <li><div><strong>Te asesoramos</strong><span>Un especialista revisa tu caso y te contacta.</span></div></li>
+              <li><div><strong>Recibís tu cotización</strong><span>Con la configuración recomendada para tu producción.</span></div></li>
+            </ol>
+            <div class="contacto-directo">
+              <a href="#" data-whatsapp><i data-lucide="message-circle" aria-hidden="true"></i> Escribinos por WhatsApp</a>
+              <span style="display:inline-flex;gap:10px;align-items:center"><i data-lucide="map-pin" aria-hidden="true" style="color:var(--naranja-claro)"></i> Rosario, Santa Fe, Argentina</span>
+            </div>
+          </div>
+
+          <div class="presupuesto__form">
+            <form id="form-presupuesto" class="form-grid form-grid--2" novalidate>
+              <p class="seleccion-aviso campo--ancho" id="pr-seleccion" role="status" hidden></p>
+              <div class="campo">
+                <label for="pr-nombre">Nombre y apellido</label>
+                <input id="pr-nombre" name="nombre" type="text" autocomplete="name" required>
+                <p class="campo__error" id="pr-nombre-error"></p>
+              </div>
+              <div class="campo">
+                <label for="pr-empresa">Empresa</label>
+                <input id="pr-empresa" name="empresa" type="text" autocomplete="organization" required>
+                <p class="campo__error" id="pr-empresa-error"></p>
+              </div>
+              <div class="campo">
+                <label for="pr-pais">País</label>
+                <select id="pr-pais" name="pais" required data-opciones-paises>
+                  <option value="">Elegí tu país</option>
+                </select>
+                <p class="campo__error" id="pr-pais-error"></p>
+              </div>
+              <div class="campo">
+                <label for="pr-email">Email</label>
+                <input id="pr-email" name="email" type="email" autocomplete="email" inputmode="email" required>
+                <p class="campo__error" id="pr-email-error"></p>
+              </div>
+              <div class="campo">
+                <label for="pr-whatsapp">WhatsApp o teléfono <span class="opcional">(opcional)</span></label>
+                <input id="pr-whatsapp" name="whatsapp" type="tel" autocomplete="tel" inputmode="tel" placeholder="+54 9 341 000 0000">
+                <p class="campo__error" id="pr-whatsapp-error"></p>
+              </div>
+              <div class="campo">
+                <label for="pr-negocio">Tipo de negocio</label>
+                <select id="pr-negocio" name="negocio" required>
+                  <option value="">Elegí una opción</option>
+                  <option value="fabrica">Fábrica de alimentos</option>
+                  <option value="franquicia">Franquicia gastronómica</option>
+                  <option value="rotiseria">Rotisería</option>
+                  <option value="otro">Otro</option>
+                </select>
+                <p class="campo__error" id="pr-negocio-error"></p>
+              </div>
+              <fieldset class="campo campo--ancho selector-maquinas" aria-describedby="pr-maquinas-error">
+                <legend>Máquina(s) de interés</legend>
+                <div class="chips-check" id="pr-maquinas" data-checks-maquinas></div>
+                <p class="campo__error" id="pr-maquinas-error"></p>
+              </fieldset>
+              <div class="campo campo--ancho">
+                <label for="pr-produccion">Producción diaria aproximada</label>
+                <select id="pr-produccion" name="produccion" required>
+                  <option value="">Elegí un rango</option>
+                  <option>Menos de 500 unidades por día</option>
+                  <option>500 a 2.000 unidades por día</option>
+                  <option>2.000 a 5.000 unidades por día</option>
+                  <option>5.000 a 10.000 unidades por día</option>
+                  <option>Más de 10.000 unidades por día</option>
+                </select>
+                <p class="campo__error" id="pr-produccion-error"></p>
+              </div>
+              <div class="campo campo--ancho">
+                <label for="pr-mensaje">Contanos tu necesidad</label>
+                <textarea id="pr-mensaje" name="mensaje" rows="4" placeholder="¿Qué producís hoy, cómo lo hacés y qué querés mejorar?" required></textarea>
+                <p class="campo__error" id="pr-mensaje-error"></p>
+              </div>
+              <div class="form-pie campo--ancho">
+                <button class="btn btn--cta" type="submit">Enviar pedido de presupuesto <i data-lucide="send" aria-hidden="true"></i></button>
+                <small>Respondemos en menos de 48 h hábiles.</small>
+              </div>
+            </form>
+            <div class="exito" id="presupuesto-exito" role="status" hidden tabindex="-1">
+              <i data-lucide="circle-check" aria-hidden="true"></i>
+              <div>
+                <strong>¡Gracias! Te contactamos en menos de 48 h hábiles.</strong>
+                <span id="presupuesto-resumen"></span>
+                <p style="margin-top:12px"><button class="btn btn--borde btn--chico" type="button" id="presupuesto-otro">Enviar otro pedido</button></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 9. FORO IA ================= -->
+    <section class="seccion" id="foro" aria-labelledby="foro-titulo" style="padding-top:0;padding-bottom:0">
+      <div class="contenedor">
+        <div class="foro-bloque reveal">
+          <svg class="blob blob--naranja" viewBox="0 0 520 420" style="width:340px;right:-140px;top:-160px" aria-hidden="true">
+            <use href="#forma-blob" class="relleno"/>
+            <use href="#forma-blob" class="linea" style="stroke:var(--crema)" transform="translate(-26 -22) scale(1.1)"/>
+          </svg>
+          <div>
+            <h2 class="titulo titulo--claro" id="foro-titulo">Foro IA Blotta</h2>
+            <p>Consultá, aprendé y compartí experiencias con nuestra comunidad.</p>
+            <span class="foro-bloque__etiqueta"><i data-lucide="sparkles" aria-hidden="true"></i> Respuestas de la comunidad y del asistente IA</span>
+          </div>
+          <a class="btn btn--cta" href="foro.html">Ingresar al foro <i data-lucide="arrow-right" aria-hidden="true"></i></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ================= 10. FOOTER ================= -->
+  <footer class="footer">
+    <div class="contenedor">
+      <div class="footer__grid">
+        <div class="footer__marca">
+          <a class="footer__logo-card" href="index.html" aria-label="Blotta, inicio">
+            <img src="assets/logo-blotta.jpg" alt="Blotta – Tecnología Alimentaria" width="1043" height="294">
+          </a>
+          <p>Maquinaria industrial para la producción de empanadas y masas. Desde 1995.</p>
+          <div class="redes" aria-label="Redes sociales">
+            <!-- REEMPLAZAR: links reales de redes -->
+            <a href="#" aria-label="LinkedIn de Blotta"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg></a>
+            <a href="#" aria-label="Instagram de Blotta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.6" cy="6.4" r="1" fill="currentColor"/></svg></a>
+            <a href="#" aria-label="Facebook de Blotta"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M24 12.07C24 5.4 18.63 0 12 0S0 5.4 0 12.07C0 18.1 4.39 23.1 10.13 24v-8.44H7.08v-3.49h3.05V9.41c0-3.02 1.79-4.69 4.53-4.69 1.31 0 2.68.24 2.68.24v2.97h-1.51c-1.49 0-1.96.93-1.96 1.89v2.25h3.33l-.53 3.49h-2.8V24C19.61 23.1 24 18.1 24 12.07z"/></svg></a>
+            <a href="#" aria-label="YouTube de Blotta"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.6V8.4l6.2 3.6-6.2 3.6z"/></svg></a>
+          </div>
+        </div>
+        <nav aria-labelledby="f-links">
+          <h2 id="f-links">Links rápidos</h2>
+          <ul>
+            <li><a href="#maquinas">Máquinas</a></li>
+            <li><a href="#nosotros">Nosotros</a></li>
+            <li><a href="#showroom">Showroom</a></li>
+            <li><a href="#presupuesto">Pedí tu presupuesto</a></li>
+          </ul>
+        </nav>
+        <nav aria-labelledby="f-comunidad">
+          <h2 id="f-comunidad">Comunidad</h2>
+          <ul>
+            <li><a href="foro.html">Foro IA Blotta</a></li>
+            <li><a href="trabaja-con-nosotros.html">Trabajá con nosotros</a></li>
+            <li><a href="#showroom">E-Book para productores</a></li>
+          </ul>
+        </nav>
+        <div>
+          <h2>Contacto</h2>
+          <ul>
+            <li class="footer__dato"><i data-lucide="map-pin" aria-hidden="true"></i> Rosario, Santa Fe, Argentina</li>
+            <li class="footer__dato"><i data-lucide="message-circle" aria-hidden="true"></i> <a href="#" data-whatsapp>WhatsApp</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__base">
+        <div class="empujar">
+          <span class="empujar__logo"><img src="assets/logo-empujar.png" alt="Fundación Empujar" width="588" height="201"></span>
+          <span>Proyecto desarrollado con la <strong>Fundación Empujar</strong></span>
+        </div>
+        <span class="seguro"><i data-lucide="lock" aria-hidden="true"></i> Sitio seguro · HTTPS</span>
+        <span>© <span data-anio>2026</span> Blotta – Tecnología Alimentaria</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Modal de detalle de máquina (se llena desde main.js) -->
+  <dialog class="modal" id="modal-maquina" aria-labelledby="modal-titulo">
+    <button class="modal__cerrar" type="button" data-cerrar-modal aria-label="Cerrar detalles"><i data-lucide="x" aria-hidden="true"></i></button>
+    <div class="modal__interior" id="modal-contenido"></div>
+  </dialog>
+
+  <!-- Íconos Lucide (versión fija) -->
+  <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>

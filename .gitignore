@@ -1,0 +1,8 @@
+# Carpetas temporales de herramientas
+.impeccable/live/
+.impeccable/questions/
+.impeccable/mocks/
+.impeccable/review/
+.impeccable/config.local.json
+.DS_Store
+Thumbs.db
