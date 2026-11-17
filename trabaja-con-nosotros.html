@@ -40,9 +40,20 @@
       document.addEventListener('click', function (e) {
         if (!e.target.closest || !e.target.closest('#btn-tema')) return;
         var nuevo = d.dataset.tema === 'oscuro' ? 'claro' : 'oscuro';
-        d.dataset.tema = nuevo;
+        var cambiar = function () {
+          d.dataset.tema = nuevo;
+          document.dispatchEvent(new CustomEvent('tema-cambiado'));
+        };
         try { localStorage.setItem('tema', nuevo); } catch (err) {}
-        document.dispatchEvent(new CustomEvent('tema-cambiado'));
+        /* Animación: el nuevo modo se expande en círculo desde el botón */
+        var r = e.target.closest('#btn-tema').getBoundingClientRect();
+        d.style.setProperty('--tema-x', (r.left + r.width / 2) + 'px');
+        d.style.setProperty('--tema-y', (r.top + r.height / 2) + 'px');
+        if (document.startViewTransition && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          var vt = document.startViewTransition(cambiar);
+          /* Si tocan el botón muy rápido, la animación anterior se cancela: no es un error */
+          vt.ready.catch(function () {}); vt.finished.catch(function () {});
+        } else cambiar();
       });
     })();
   </script>
@@ -178,7 +189,7 @@
   </footer>
 
   <!-- Íconos Lucide (versión fija) -->
-  <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
+  <script src="assets/iconos.js"></script>
   <script src="main.js"></script>
 </body>
 </html>

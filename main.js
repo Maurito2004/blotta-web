@@ -338,6 +338,8 @@ function initModal() {
     if (cot) { modal.close(); cotizar(cot.dataset.cotizarModal); }
   });
   modal.addEventListener('close', () => {
+    // Si se abrió desde un link compartido (#m-...), limpiamos el link para que no reabra al recargar
+    if (/^#m-/.test(location.hash)) history.replaceState(null, '', location.pathname + location.search + '#maquinas');
     if (disparadorModal && document.contains(disparadorModal)) disparadorModal.focus();
   });
 }

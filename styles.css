@@ -1261,3 +1261,25 @@ img.foto--entera { object-fit: contain; background: #fff; padding: 10px; }
 @media (hover: hover) and (pointer: fine) { .compartir:hover { text-decoration: underline; text-underline-offset: 0.2em; } }
 :root[data-tema="oscuro"] .compartir { color: #5BE38D; }
 .btn--compartir svg { width: 18px; height: 18px; }
+
+/* ---------- Animaciones finales ---------- */
+/* Cambio de tema: círculo que se expande desde el botón sol/luna (View Transitions) */
+::view-transition-old(root), ::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
+::view-transition-new(root) { animation: revelar-tema 600ms var(--ease-out); }
+@keyframes revelar-tema {
+  from { clip-path: circle(0 at var(--tema-x, 100%) var(--tema-y, 0)); }
+  to   { clip-path: circle(150vmax at var(--tema-x, 100%) var(--tema-y, 0)); }
+}
+/* El ícono del botón entra girando */
+.tema-toggle svg { animation: icono-entra 420ms var(--ease-out); }
+@keyframes icono-entra { from { transform: rotate(-90deg) scale(0.6); opacity: 0; } to { transform: none; opacity: 1; } }
+/* Zoom suave de la foto al pasar el mouse por una tarjeta (solo con mouse) */
+.maquina img.foto { transition: transform 500ms var(--ease-out); }
+@media (hover: hover) and (pointer: fine) {
+  .maquina:hover img.foto { transform: scale(1.04); }
+}
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-new(root) { animation: none; }
+  .tema-toggle svg { animation: none; }
+  .maquina:hover img.foto { transform: none; }
+}
