@@ -34,7 +34,8 @@
     .error404 { min-height: 100dvh; display: grid; place-items: center; text-align: center; padding: 40px var(--gutter); }
     .error404__caja { max-width: 560px; display: grid; justify-items: center; gap: 18px; }
     .error404 img { height: 48px; width: auto; }
-    .error404__numero { font-family: var(--font-titulos); font-weight: 800; font-size: clamp(5rem, 18vw, 9rem); line-height: 1; color: var(--naranja); }
+    .error404__numero { font-family: var(--font-titulos); font-weight: 800; font-size: clamp(5rem, 18vw, 9rem); line-height: 1; color: var(--enlace); }
+    :root[data-tema="oscuro"] .error404__numero { color: var(--naranja); }
     .error404 p { font-size: 1.3rem; color: var(--texto-suave); margin: 0; }
     .error404__acciones { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 8px; }
   </style>
