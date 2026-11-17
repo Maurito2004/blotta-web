@@ -12,8 +12,11 @@
   <meta property="og:locale" content="es_AR">
   <meta property="og:title" content="Blotta – Tecnología Alimentaria">
   <meta property="og:description" content="Maquinaria industrial para la producción de empanadas y masas. Más de 30 años de experiencia. Pedí tu presupuesto.">
-  <meta property="og:image" content="assets/logo-blotta.jpg">
-  <!-- REEMPLAZAR: cuando esté publicado, poné la URL absoluta en og:image y agregá og:url -->
+  <meta property="og:image" content="https://blotta-tecnologia-alimentaria.netlify.app/assets/fotos/conformadora.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="500">
+  <meta property="og:url" content="https://blotta-tecnologia-alimentaria.netlify.app/">
+  <meta name="twitter:card" content="summary_large_image">
 
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 
@@ -21,7 +24,26 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
-  <script>document.documentElement.classList.add('js');</script>
+  <!-- El sitio trae su propio modo oscuro: le pedimos a extensiones tipo Dark Reader que no lo modifiquen -->
+  <meta name="darkreader-lock">
+  <script>
+    /* Tema antes de pintar (evita el parpadeo): elección guardada o la del sistema */
+    (function () {
+      var d = document.documentElement, t = null;
+      d.classList.add('js');
+      try { t = localStorage.getItem('tema'); } catch (e) {}
+      if (t !== 'claro' && t !== 'oscuro') t = matchMedia('(prefers-color-scheme: dark)').matches ? 'oscuro' : 'claro';
+      d.dataset.tema = t;
+      /* El botón sol/luna funciona desde el primer instante, aunque el resto de la página siga cargando */
+      document.addEventListener('click', function (e) {
+        if (!e.target.closest || !e.target.closest('#btn-tema')) return;
+        var nuevo = d.dataset.tema === 'oscuro' ? 'claro' : 'oscuro';
+        d.dataset.tema = nuevo;
+        try { localStorage.setItem('tema', nuevo); } catch (err) {}
+        document.dispatchEvent(new CustomEvent('tema-cambiado'));
+      });
+    })();
+  </script>
 </head>
 <body>
   <!-- Formas decorativas reutilizables (blob de la marca) -->
@@ -37,7 +59,8 @@
   <header class="header" id="header">
     <div class="contenedor header__barra">
       <a class="header__logo" href="index.html" aria-label="Blotta – Tecnología Alimentaria, inicio">
-        <img src="assets/logo-blotta.jpg" alt="Blotta – Tecnología Alimentaria" width="1043" height="294">
+        <img class="logo--claro" src="assets/logo-blotta.png" alt="Blotta – Tecnología Alimentaria" width="895" height="234">
+        <img class="logo--oscuro" src="assets/logo-blotta-blanco.png" alt="Blotta – Tecnología Alimentaria" width="895" height="234">
       </a>
       <nav class="nav" aria-label="Principal">
         <ul class="nav__lista">
@@ -49,10 +72,16 @@
           <li><a class="nav__link" href="#presupuesto">Contacto</a></li>
         </ul>
       </nav>
-      <a class="btn btn--cta btn--chico header__cta" href="#presupuesto">Pedí tu presupuesto</a>
-      <button class="hamburguesa" id="btn-menu" aria-label="Abrir menú" aria-expanded="false" aria-controls="menu-movil">
-        <i data-lucide="menu" aria-hidden="true"></i>
-      </button>
+      <div class="header__acciones">
+        <button class="tema-toggle" id="btn-tema" type="button" aria-pressed="false" aria-label="Activar modo oscuro" title="Cambiar a modo oscuro">
+          <svg class="icono-luna" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+          <svg class="icono-sol" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+        </button>
+        <a class="btn btn--cta btn--chico header__cta" href="#presupuesto">Pedí tu presupuesto</a>
+        <button class="hamburguesa" id="btn-menu" aria-label="Abrir menú" aria-expanded="false" aria-controls="menu-movil">
+          <i data-lucide="menu" aria-hidden="true"></i>
+        </button>
+      </div>
     </div>
   </header>
   <nav class="menu-movil" id="menu-movil" aria-label="Menú móvil" hidden>
@@ -101,7 +130,7 @@
           <div class="hero__media anim" style="--d:180ms">
             <img class="foto" src="assets/fotos/conformadora.jpg" alt="Conformadora de empanadas Blotta MCE1 produciendo empanadas" width="1200" height="500" style="object-position:38% 50%" fetchpriority="high">
             <div class="hero__logo-card">
-              <img src="assets/logo-blotta.jpg" alt="" width="1043" height="294">
+              <img src="assets/logo-blotta.png" alt="" width="895" height="234">
             </div>
           </div>
         </div>
@@ -359,7 +388,7 @@
             </ol>
             <div class="contacto-directo">
               <a href="#" data-whatsapp><i data-lucide="message-circle" aria-hidden="true"></i> Escribinos por WhatsApp</a>
-              <span style="display:inline-flex;gap:10px;align-items:center"><i data-lucide="map-pin" aria-hidden="true" style="color:var(--naranja-claro)"></i> Rosario, Santa Fe, Argentina</span>
+              <span style="display:inline-flex;gap:10px;align-items:center"><i data-lucide="map-pin" aria-hidden="true" style="color:var(--naranja-claro)"></i> México 303, Rosario, Santa Fe</span>
             </div>
           </div>
 
@@ -469,7 +498,7 @@
       <div class="footer__grid">
         <div class="footer__marca">
           <a class="footer__logo-card" href="index.html" aria-label="Blotta, inicio">
-            <img src="assets/logo-blotta.jpg" alt="Blotta – Tecnología Alimentaria" width="1043" height="294">
+            <img src="assets/logo-blotta.png" alt="Blotta – Tecnología Alimentaria" width="895" height="234">
           </a>
           <p>Maquinaria industrial para la producción de empanadas y masas. Desde 1995.</p>
           <div class="redes" aria-label="Redes sociales">

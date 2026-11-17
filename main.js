@@ -284,13 +284,11 @@ function abrirDetalle(id, disparador) {
   if (!modal || !m) return;
   disparadorModal = disparador || null;
 
-  const video = m.video
-    ? `<iframe src="https://www.youtube-nocookie.com/embed/${encodeURIComponent(m.video)}" title="Video: ${escapar(m.nombre)} en funcionamiento" allowfullscreen loading="lazy"></iframe>`
-    : `<!-- REEMPLAZAR: cargá el ID de YouTube en el campo "video" de esta máquina en main.js -->
-       <div class="foto" role="img" aria-label="Espacio para el video de la máquina">
-         <span class="video__play"><i data-lucide="play" aria-hidden="true"></i></span>
-         <span class="foto__texto">Video próximamente</span>
-       </div>`;
+  // Con video: el video de YouTube. Sin video: la foto real de la máquina.
+  const media = m.video
+    ? `<h3 style="margin-bottom:10px">Mirá cómo funciona</h3>
+       <div class="video"><iframe src="https://www.youtube-nocookie.com/embed/${encodeURIComponent(m.video)}" title="Video: ${escapar(m.nombre)} en funcionamiento" allowfullscreen loading="lazy"></iframe></div>`
+    : `<div class="modal__foto">${htmlImagen(m)}</div>`;
 
   $('#modal-contenido').innerHTML = `
     <div class="modal__grid">
@@ -304,8 +302,7 @@ function abrirDetalle(id, disparador) {
         </ul>
       </div>
       <div>
-        <h3 style="margin-bottom:10px">Mirá cómo funciona</h3>
-        <div class="video">${video}</div>
+        ${media}
         <h3 style="margin-top:20px;margin-bottom:6px">Datos técnicos</h3>
         ${htmlSpecs(m.specs)}
         <p class="nota-ejemplo" style="margin-top:8px"><i data-lucide="info" aria-hidden="true"></i> Valores aproximados: dependen del producto y la configuración.</p>
@@ -922,7 +919,37 @@ function initFocoMovil() {
 }
 
 /* ---------- 15. Arranque ---------- */
+/* ---------- Modo claro / oscuro ----------
+   El tema inicial lo pone un script en el <head> (sin parpadeo).
+   El clic del botón también vive ahí; acá solo sincronizamos textos accesibles. */
+function initTema() {
+  const btn = $('#btn-tema');
+  const raiz = document.documentElement;
+  const metaColor = document.querySelector('meta[name="theme-color"]');
+  const aplicar = (tema) => {
+    raiz.dataset.tema = tema;
+    const oscuro = tema === 'oscuro';
+    if (btn) {
+      btn.setAttribute('aria-pressed', String(oscuro));
+      btn.setAttribute('aria-label', oscuro ? 'Activar modo claro' : 'Activar modo oscuro');
+      btn.title = oscuro ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro';
+    }
+    if (metaColor) metaColor.content = oscuro ? '#0E1631' : '#123FB3';
+  };
+  // El clic lo maneja el script del <head>; acá solo actualizamos textos y color de la barra
+  const sincronizar = () => aplicar(raiz.dataset.tema === 'oscuro' ? 'oscuro' : 'claro');
+  sincronizar();
+  document.addEventListener('tema-cambiado', sincronizar);
+  // Si la persona nunca eligió, seguimos al sistema cuando cambia
+  window.matchMedia?.('(prefers-color-scheme: dark)').addEventListener?.('change', (e) => {
+    let guardado = null;
+    try { guardado = localStorage.getItem('tema'); } catch (err) { /* nada */ }
+    if (!guardado) aplicar(e.matches ? 'oscuro' : 'claro');
+  });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
+  initTema();
   initHeader();
   initCatalogo();
   initModal();
