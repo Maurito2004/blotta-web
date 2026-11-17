@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /ebook/
+
+Sitemap: https://blotta-tecnologia-alimentaria.netlify.app/sitemap.xml

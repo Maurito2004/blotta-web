@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Página no encontrada | Blotta – Tecnología Alimentaria</title>
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#123FB3">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+  <meta name="darkreader-lock">
+  <script>
+    /* Tema antes de pintar (evita el parpadeo): elección guardada o la del sistema */
+    (function () {
+      var d = document.documentElement, t = null;
+      d.classList.add('js');
+      try { t = localStorage.getItem('tema'); } catch (e) {}
+      if (t !== 'claro' && t !== 'oscuro') t = matchMedia('(prefers-color-scheme: dark)').matches ? 'oscuro' : 'claro';
+      d.dataset.tema = t;
+      /* El botón sol/luna funciona desde el primer instante, aunque el resto de la página siga cargando */
+      document.addEventListener('click', function (e) {
+        if (!e.target.closest || !e.target.closest('#btn-tema')) return;
+        var nuevo = d.dataset.tema === 'oscuro' ? 'claro' : 'oscuro';
+        d.dataset.tema = nuevo;
+        try { localStorage.setItem('tema', nuevo); } catch (err) {}
+        document.dispatchEvent(new CustomEvent('tema-cambiado'));
+      });
+    })();
+  </script>
+  <style>
+    .error404 { min-height: 100dvh; display: grid; place-items: center; text-align: center; padding: 40px var(--gutter); }
+    .error404__caja { max-width: 560px; display: grid; justify-items: center; gap: 18px; }
+    .error404 img { height: 48px; width: auto; }
+    .error404__numero { font-family: var(--font-titulos); font-weight: 800; font-size: clamp(5rem, 18vw, 9rem); line-height: 1; color: var(--naranja); }
+    .error404 p { font-size: 1.3rem; color: var(--texto-suave); margin: 0; }
+    .error404__acciones { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 8px; }
+  </style>
+</head>
+<body>
+  <main class="error404">
+    <div class="error404__caja">
+      <a href="/" aria-label="Blotta, inicio">
+        <img class="logo--claro" src="/assets/logo-blotta.png" alt="Blotta – Tecnología Alimentaria" width="895" height="234">
+        <img class="logo--oscuro" src="/assets/logo-blotta-blanco.png" alt="Blotta – Tecnología Alimentaria" width="895" height="234">
+      </a>
+      <div class="error404__numero" aria-hidden="true">404</div>
+      <h1 class="titulo titulo--centro">Esta página se quedó sin relleno</h1>
+      <p>El link que seguiste no existe o cambió de lugar. Te dejamos los caminos más usados:</p>
+      <div class="error404__acciones">
+        <a class="btn btn--cta" href="/#maquinas">Ver las máquinas</a>
+        <a class="btn btn--borde" href="/#presupuesto">Pedir presupuesto</a>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

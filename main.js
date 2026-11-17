@@ -165,6 +165,15 @@ function escapar(texto) {
   return div.innerHTML;
 }
 
+// Dirección pública del sitio (los links compartidos siempre apuntan acá)
+const SITIO = 'https://blotta-tecnologia-alimentaria.netlify.app/';
+
+/** Link para compartir una máquina por WhatsApp: abre la ficha directo al tocarlo */
+function linkCompartir(m) {
+  const texto = `Mirá esta máquina de Blotta: *${m.nombre}*. ${m.descripcion}\n${SITIO}#m-${m.id}`;
+  return `https://wa.me/?text=${encodeURIComponent(texto)}`;
+}
+
 function linkWhatsApp(mensaje = WHATSAPP_MENSAJE) {
   return `https://wa.me/${WHATSAPP_NUMERO}?text=${encodeURIComponent(mensaje)}`;
 }
@@ -247,6 +256,7 @@ function initCatalogo() {
             <div class="maquina__acciones">
               <button class="btn btn--cta btn--chico" type="button" data-cotizar="${m.id}">Cotizar esta máquina</button>
               <button class="link-detalle" type="button" data-detalle="${m.id}">Ver detalles <i data-lucide="arrow-right" aria-hidden="true"></i></button>
+              <a class="compartir" href="${linkCompartir(m)}" target="_blank" rel="noopener" aria-label="Compartir ${escapar(m.nombre)} por WhatsApp" title="Compartir por WhatsApp">${ICONO_WHATSAPP}<span>Compartir</span></a>
             </div>
           </div>
         </article>`).join('')
@@ -310,6 +320,7 @@ function abrirDetalle(id, disparador) {
         <p class="nota-ejemplo" style="margin-top:8px"><i data-lucide="info" aria-hidden="true"></i> Valores aproximados: dependen del producto y la configuración.</p>
         <div class="modal__acciones">
           <button class="btn btn--cta" type="button" data-cotizar-modal="${m.id}">Cotizar esta máquina</button>
+          <a class="btn btn--borde btn--compartir" href="${linkCompartir(m)}" target="_blank" rel="noopener">${ICONO_WHATSAPP} Compartir</a>
         </div>
       </div>
     </div>`;
@@ -701,6 +712,12 @@ function initChatbot() {
     trabajo() {
       responder('¡Qué bueno que quieras sumarte! Mirá las búsquedas activas en <a href="trabaja-con-nosotros.html">Trabajá con nosotros</a>.');
     },
+    ebook() {
+      responder('Tenemos una guía gratuita: <strong>“De la producción manual a la industrial”</strong>, con el proceso completo, cuánto produce cada máquina y un checklist antes de comprar. <a href="assets/ebook-blotta.pdf" download="Guia-Blotta-produccion-industrial.pdf">Descargar la guía (PDF)</a> · También está el <a href="assets/catalogo-blotta.pdf" download>catálogo completo</a>.');
+    },
+    contacto() {
+      responder('Estamos en <strong>México 303, Rosario, Santa Fe</strong> (<a href="https://maps.google.com/?q=M%C3%A9xico+303,+S2007+Rosario,+Santa+Fe" target="_blank" rel="noopener">ver mapa</a>). Teléfono: <a href="tel:+5493412670269">+54 9 341 267-0269</a> · Email: <a href="mailto:administracionventas@blotta.com.ar">administracionventas@blotta.com.ar</a>.');
+    },
     foro() {
       responder('En el <a href="foro.html">Foro IA Blotta</a> podés consultar y compartir experiencias con otros productores.');
     }
@@ -715,6 +732,8 @@ function initChatbot() {
     [/showroom|visita|prueba|conocer la planta/, 'showroom'],
     [/trabajo|empleo|cv|busqueda|postul/, 'trabajo'],
     [/foro|comunidad/, 'foro'],
+    [/ebook|e-book|libro|guia|pdf|descarg/, 'ebook'],
+    [/direccion|donde (estan|queda)|ubicacion|mapa|mail|correo|email/, 'contacto'],
     [/maquina|catalogo|linea|lamina|conformadora|cortadora|tapas|mezcla|harin|cruzad|pesaje|envas|flow|equipo/, 'maquinas']
   ];
 
@@ -950,6 +969,15 @@ function initTema() {
   });
 }
 
+/* ---------- Link directo a una máquina (#m-conformadora) ---------- */
+function abrirMaquinaDesdeLink() {
+  const coincide = location.hash.match(/^#m-([\w-]+)$/);
+  if (!coincide || !MAQUINAS.some((m) => m.id === coincide[1])) return;
+  $('#maquinas')?.scrollIntoView({ behavior: 'auto', block: 'start' });
+  // El disparador para devolver el foco al cerrar es el botón "Ver detalles" de esa tarjeta
+  setTimeout(() => abrirDetalle(coincide[1], $(`[data-detalle="${coincide[1]}"]`)), 150);
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   initTema();
   initHeader();
@@ -965,4 +993,6 @@ document.addEventListener('DOMContentLoaded', () => {
   $$('[data-anio]').forEach((el) => { el.textContent = new Date().getFullYear(); });
   refrescarIconos();
   observarReveal();
+  abrirMaquinaDesdeLink();
+  window.addEventListener('hashchange', abrirMaquinaDesdeLink);
 });

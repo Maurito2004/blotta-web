@@ -585,7 +585,22 @@ img.foto { display: block; height: auto; }
 .nosotros__texto p + p { margin-top: 14px; }
 .nosotros__texto p { max-width: 58ch; }
 .nosotros__texto strong { color: var(--titulo); font-weight: 600; }
-.nosotros__media .foto { aspect-ratio: 5 / 4; }
+.nosotros__media { position: relative; padding-bottom: 22%; }
+.nosotros__foto { margin: 0; position: relative; }
+.nosotros__foto .foto { aspect-ratio: 10 / 7; }
+.nosotros__foto--secundaria {
+  position: absolute; right: -8px; bottom: 0; width: 56%;
+  border: 6px solid var(--crema); border-radius: calc(var(--radio) + 6px);
+  box-shadow: var(--sombra-alta);
+}
+.nosotros__foto--secundaria .foto { aspect-ratio: 16 / 10; }
+.nosotros__foto figcaption {
+  position: absolute; left: 12px; bottom: 12px;
+  font-family: var(--font-titulos); font-weight: 700; font-size: 0.78rem;
+  background: rgba(255, 255, 255, 0.92); color: var(--marino);
+  padding: 6px 12px; border-radius: 999px;
+}
+.nosotros__foto--principal figcaption { top: 12px; bottom: auto; }
 @media (min-width: 900px) {
   .nosotros__grid { grid-template-columns: 1fr 1fr; gap: 64px; }
 }
@@ -1234,3 +1249,15 @@ body.escribiendo .flotantes, body.escribiendo .arriba { opacity: 0; pointer-even
 img.foto--entera { object-fit: contain; background: #fff; padding: 10px; }
 .maquina--linea img.foto--entera { padding: 20px; }
 .exito .btn svg { color: currentColor; }
+
+/* Compartir una máquina por WhatsApp */
+.compartir {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: var(--font-titulos); font-weight: 700; font-size: 0.85rem;
+  color: #128C4A; text-decoration: none;
+  padding: 6px 2px; border-radius: 8px;
+}
+.compartir svg { width: 18px; height: 18px; }
+@media (hover: hover) and (pointer: fine) { .compartir:hover { text-decoration: underline; text-underline-offset: 0.2em; } }
+:root[data-tema="oscuro"] .compartir { color: #5BE38D; }
+.btn--compartir svg { width: 18px; height: 18px; }
