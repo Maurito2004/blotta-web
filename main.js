@@ -153,10 +153,33 @@ const $ = (sel, ctx = document) => ctx.querySelector(sel);
 const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
 const reducirMovimiento = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-/** Dibuja los íconos Lucide pendientes (llamar después de insertar HTML). */
-function refrescarIconos() {
-  if (window.lucide) window.lucide.createIcons();
+/** Dibuja los íconos Lucide pendientes solo si hay etiquetas <i data-lucide> sin convertir. */
+function refrescarIconos(ctx = document) {
+  if (window.lucide && ctx.querySelector('i[data-lucide]')) {
+    window.lucide.createIcons();
+  }
 }
+
+/** Normaliza un texto a minúsculas y sin tildes para búsquedas tolerantes. */
+function normalizarTexto(texto) {
+  return (texto || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+}
+
+/** Despachador único de scroll sincronizado con requestAnimationFrame. */
+const tareasScroll = [];
+let scrollEnCurso = false;
+function alHacerScroll(fn) {
+  tareasScroll.push(fn);
+  fn();
+}
+window.addEventListener('scroll', () => {
+  if (scrollEnCurso) return;
+  scrollEnCurso = true;
+  requestAnimationFrame(() => {
+    scrollEnCurso = false;
+    for (let i = 0; i < tareasScroll.length; i++) tareasScroll[i]();
+  });
+}, { passive: true });
 
 /** Escapa texto para insertarlo como HTML de forma segura. */
 function escapar(texto) {
@@ -189,28 +212,32 @@ function irASeccion(id) {
 function initHeader() {
   const header = $('#header');
   if (!header) return;
-  const actualizar = () => header.classList.toggle('is-solido', window.scrollY > 12);
-  actualizar();
-  window.addEventListener('scroll', actualizar, { passive: true });
-
   const boton = $('#btn-menu');
   const menu = $('#menu-movil');
+
+  let eraSolido = null;
+  const actualizarHeader = () => {
+    const solido = window.scrollY > 12 || Boolean(menu && !menu.hidden);
+    if (solido !== eraSolido) {
+      eraSolido = solido;
+      header.classList.toggle('is-solido', solido);
+    }
+  };
+  alHacerScroll(actualizarHeader);
+
   if (!boton || !menu) return;
 
   const cerrar = () => {
     menu.hidden = true;
     boton.setAttribute('aria-expanded', 'false');
     boton.setAttribute('aria-label', 'Abrir menú');
-    boton.innerHTML = '<i data-lucide="menu" aria-hidden="true"></i>';
-    refrescarIconos();
+    actualizarHeader();
   };
   const abrir = () => {
     menu.hidden = false;
     boton.setAttribute('aria-expanded', 'true');
     boton.setAttribute('aria-label', 'Cerrar menú');
-    boton.innerHTML = '<i data-lucide="x" aria-hidden="true"></i>';
-    refrescarIconos();
-    header.classList.add('is-solido');
+    actualizarHeader();
   };
   boton.addEventListener('click', () => (menu.hidden ? abrir() : cerrar()));
   menu.addEventListener('click', (e) => { if (e.target.closest('a')) cerrar(); });
@@ -242,11 +269,12 @@ function initCatalogo() {
   if (!grilla) return;
   const conteo = $('#conteo');
 
-  const pintar = (filtro) => {
+  const pintar = (filtro, inicial = false) => {
     const lista = filtro === 'todas' ? MAQUINAS : MAQUINAS.filter((m) => m.categoria === filtro);
+    grilla.classList.toggle('is-filtrando', !inicial);
     grilla.innerHTML = lista.length
       ? lista.map((m, i) => `
-        <article class="maquina ${m.destacada ? 'maquina--linea' : ''} reveal" style="--d:${Math.min(i, 5) * 55}ms" aria-labelledby="maq-${m.id}">
+        <article class="maquina ${m.destacada ? 'maquina--linea' : ''} ${inicial ? 'reveal' : ''}" style="--d:${Math.min(i, 5) * (inicial ? 55 : 35)}ms" aria-labelledby="maq-${m.id}">
           ${htmlImagen(m)}
           <div class="maquina__cuerpo">
             <span class="chip">${CATEGORIAS[m.categoria]}</span>
@@ -265,14 +293,15 @@ function initCatalogo() {
     if (conteo) {
       conteo.textContent = `${lista.length} ${lista.length === 1 ? 'máquina' : 'máquinas'}`;
     }
-    refrescarIconos();
-    observarReveal(grilla);
+    refrescarIconos(grilla);
+    if (inicial) observarReveal(grilla);
   };
 
   $$('#filtros .filtro').forEach((btn) => {
     btn.addEventListener('click', () => {
+      if (btn.getAttribute('aria-pressed') === 'true') return;
       $$('#filtros .filtro').forEach((b) => b.setAttribute('aria-pressed', String(b === btn)));
-      pintar(btn.dataset.filtro);
+      pintar(btn.dataset.filtro, false);
     });
   });
 
@@ -284,7 +313,7 @@ function initCatalogo() {
     if (cot) cotizar(cot.dataset.cotizar);
   });
 
-  pintar('todas');
+  pintar('todas', true);
 }
 
 /* ---------- 6. Modal de detalle ---------- */
@@ -324,7 +353,7 @@ function abrirDetalle(id, disparador) {
         </div>
       </div>
     </div>`;
-  refrescarIconos();
+  refrescarIconos(modal);
   modal.showModal();
 }
 
@@ -338,10 +367,30 @@ function initModal() {
     if (cot) { modal.close(); cotizar(cot.dataset.cotizarModal); }
   });
   modal.addEventListener('close', () => {
+    // Detenemos cualquier video embebido para que no siga sonando en segundo plano
+    $$('iframe', modal).forEach((f) => { f.src = ''; });
     // Si se abrió desde un link compartido (#m-...), limpiamos el link para que no reabra al recargar
     if (/^#m-/.test(location.hash)) history.replaceState(null, '', location.pathname + location.search + '#maquinas');
     if (disparadorModal && document.contains(disparadorModal)) disparadorModal.focus();
   });
+}
+
+/** Enfoca un campo recién cuando termina el desplazamiento suave (evita cortar el scroll a mitad de camino) */
+function enfocarTrasScroll(elemento) {
+  if (!elemento) return;
+  if (reducirMovimiento) {
+    elemento.focus({ preventScroll: true });
+    return;
+  }
+  let enfocado = false;
+  const finalizar = () => {
+    if (enfocado) return;
+    enfocado = true;
+    window.removeEventListener('scrollend', finalizar);
+    elemento.focus({ preventScroll: true });
+  };
+  window.addEventListener('scrollend', finalizar, { once: true });
+  setTimeout(finalizar, 850);
 }
 
 /** Lleva al formulario de presupuesto con la máquina ya marcada */
@@ -352,7 +401,7 @@ function cotizar(id) {
   limpiarError(check.closest('fieldset'));
   actualizarAvisoSeleccion();
   $('#form-presupuesto').scrollIntoView({ behavior: reducirMovimiento ? 'auto' : 'smooth', block: 'start' });
-  setTimeout(() => $('#pr-nombre').focus({ preventScroll: true }), reducirMovimiento ? 0 : 600);
+  enfocarTrasScroll($('#pr-nombre'));
 }
 
 /** Muestra arriba del formulario qué máquinas quedaron marcadas */
@@ -365,7 +414,7 @@ function actualizarAvisoSeleccion() {
   aviso.innerHTML = nombres.length
     ? `<i data-lucide="circle-check" aria-hidden="true"></i> <span>Vas a cotizar: <strong>${nombres.map(escapar).join(', ')}</strong></span>`
     : '';
-  refrescarIconos();
+  refrescarIconos(aviso);
 }
 
 /* ---------- 7. Formularios (validación simulada) ---------- */
@@ -388,9 +437,15 @@ function llenarOpciones() {
         <span><i data-lucide="check" aria-hidden="true"></i>${escapar(m.nombre)}</span>
       </label>`).join('');
   });
-  // El showroom no puede agendarse para una fecha pasada
+  // El showroom no puede agendarse para una fecha pasada (usamos fecha local, no UTC)
   const fecha = $('#sh-fecha');
-  if (fecha) fecha.min = new Date().toISOString().split('T')[0];
+  if (fecha) {
+    const hoy = new Date();
+    const yyyy = hoy.getFullYear();
+    const mm = String(hoy.getMonth() + 1).padStart(2, '0');
+    const dd = String(hoy.getDate()).padStart(2, '0');
+    fecha.min = `${yyyy}-${mm}-${dd}`;
+  }
 }
 
 const EMAIL_OK = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
@@ -417,6 +472,7 @@ function mostrarError(campo, mensaje) {
   if (error) {
     error.textContent = mensaje;
     if (mensaje) campo.setAttribute('aria-describedby', error.id);
+    else campo.removeAttribute('aria-describedby');
   }
 }
 
@@ -435,8 +491,12 @@ function conectarFormulario(form, exito, { extra, alEnviar } = {}) {
   const campos = $$('input:not([type="checkbox"]), select, textarea', form);
 
   campos.forEach((c) => {
+    const revalidarSiInvalido = () => {
+      if (c.getAttribute('aria-invalid') === 'true') mostrarError(c, validarCampo(c));
+    };
     c.addEventListener('blur', () => { if (c.value) mostrarError(c, validarCampo(c)); });
-    c.addEventListener('input', () => { if (c.getAttribute('aria-invalid') === 'true') mostrarError(c, validarCampo(c)); });
+    c.addEventListener('input', revalidarSiInvalido);
+    c.addEventListener('change', revalidarSiInvalido);
   });
 
   form.addEventListener('submit', (e) => {
@@ -588,9 +648,14 @@ function initFlotantes() {
     window.scrollTo({ top: 0, behavior: reducirMovimiento ? 'auto' : 'smooth' });
     ($('.header__logo') || document.body).focus?.();
   });
-  const mostrarArriba = () => arriba.classList.toggle('is-visible', window.scrollY > 700);
-  mostrarArriba();
-  window.addEventListener('scroll', mostrarArriba, { passive: true });
+  let eraVisibleArriba = null;
+  alHacerScroll(() => {
+    const visible = window.scrollY > 700;
+    if (visible !== eraVisibleArriba) {
+      eraVisibleArriba = visible;
+      arriba.classList.toggle('is-visible', visible);
+    }
+  });
 
   // Todos los links marcados con data-whatsapp usan la constante
   $$('[data-whatsapp]').forEach((a) => {
@@ -687,15 +752,27 @@ function initChatbot() {
   $('.chat__cerrar', chat).addEventListener('click', cerrar);
   chat.addEventListener('keydown', (e) => { if (e.key === 'Escape') cerrar(); });
 
+  // En celular cerramos la ventana del chat al llevar a una sección para no taparla
+  const navegarDesdeChat = (id) => {
+    setTimeout(() => {
+      if (window.matchMedia('(max-width: 640px)').matches && !chat.hidden) {
+        chat.hidden = true;
+        btnChat.setAttribute('aria-expanded', 'false');
+        btnChat.setAttribute('aria-label', 'Abrir asistente virtual');
+      }
+      irASeccion(id);
+    }, reducirMovimiento ? 0 : 850);
+  };
+
   // Acciones (botones rápidos y palabras clave comparten la misma lógica)
   const acciones = {
     maquinas() {
       responder(`Tenemos equipos para cada etapa: mezcladoras, formadores de hoja, laminación, conformadoras de empanadas, cortadoras de tapas, pesaje y envasado. Te llevo al catálogo 👇`);
-      setTimeout(() => irASeccion('maquinas'), 900);
+      navegarDesdeChat('maquinas');
     },
     presupuesto() {
       responder('¡Genial! Completá el formulario de presupuesto y un especialista te contacta en menos de 48 h hábiles. Te llevo ahí 👇');
-      setTimeout(() => irASeccion('presupuesto'), 900);
+      navegarDesdeChat('presupuesto');
     },
     pedido() {
       esperandoPedido = true;
@@ -709,7 +786,7 @@ function initChatbot() {
     },
     showroom() {
       responder('Podés agendar una prueba en nuestro showroom de Rosario y ver las máquinas funcionando. Te llevo al formulario 👇');
-      setTimeout(() => irASeccion('showroom'), 900);
+      navegarDesdeChat('showroom');
     },
     trabajo() {
       responder('¡Qué bueno que quieras sumarte! Mirá las búsquedas activas en <a href="trabaja-con-nosotros.html">Trabajá con nosotros</a>.');
@@ -740,7 +817,7 @@ function initChatbot() {
   ];
 
   const procesar = (texto) => {
-    const t = texto.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+    const t = normalizarTexto(texto);
 
     if (esperandoPedido) {
       const num = t.match(/\d{3,}/);
@@ -800,13 +877,13 @@ function initForo() {
   const categorias = $('#categorias-foro');
   let categoriaActiva = 'Todas';
 
-  const iniciales = (n) => n.split(' ').map((p) => p[0]).join('').slice(0, 2).toUpperCase();
+  const iniciales = (n) => (n || '').trim().split(/\s+/).filter(Boolean).map((p) => p[0]).join('').slice(0, 2).toUpperCase();
 
   const pintar = () => {
-    const q = (buscador?.value || '').toLowerCase().trim();
+    const q = normalizarTexto(buscador?.value).trim();
     const filtrados = TEMAS_FORO.filter((t) =>
       (categoriaActiva === 'Todas' || t.categoria === categoriaActiva) &&
-      (!q || t.titulo.toLowerCase().includes(q) || t.categoria.toLowerCase().includes(q)));
+      (!q || normalizarTexto(t.titulo).includes(q) || normalizarTexto(t.categoria).includes(q)));
     lista.innerHTML = filtrados.length ? filtrados.map((t, i) => `
       <li class="tema reveal is-visible" style="--d:${i * 40}ms">
         <span class="tema__avatar" aria-hidden="true">${iniciales(t.autor)}</span>
@@ -823,7 +900,7 @@ function initForo() {
         </div>
       </li>`).join('')
       : '<li class="vacio">No encontramos temas con esa búsqueda. ¿Por qué no abrís una nueva consulta?</li>';
-    refrescarIconos();
+    refrescarIconos(lista);
   };
 
   // Chips de categorías
@@ -910,7 +987,7 @@ function initEmpleos() {
         <a class="btn btn--cta" href="${mailto}">Enviar CV <i data-lucide="send" aria-hidden="true"></i></a>
       </article>`;
   }).join('');
-  refrescarIconos();
+  refrescarIconos(cont);
   observarReveal(cont);
 }
 
@@ -919,26 +996,41 @@ function initMenuActivo() {
   const links = $$('.nav__link[href^="#"]');
   if (!links.length || !('IntersectionObserver' in window)) return;
   const secciones = links.map((a) => document.getElementById(a.getAttribute('href').slice(1))).filter(Boolean);
+  const visibles = new Set();
   const obs = new IntersectionObserver((entradas) => {
     entradas.forEach((en) => {
-      if (!en.isIntersecting) return;
-      links.forEach((a) => {
-        if (a.getAttribute('href') === `#${en.target.id}`) a.setAttribute('aria-current', 'location');
-        else a.removeAttribute('aria-current');
-      });
+      if (en.isIntersecting) visibles.add(en.target.id);
+      else visibles.delete(en.target.id);
     });
-  }, { rootMargin: '-45% 0px -50% 0px' });
+    const activa = secciones.find((s) => visibles.has(s.id))?.id || '';
+    links.forEach((a) => {
+      if (activa && a.getAttribute('href') === `#${activa}`) a.setAttribute('aria-current', 'location');
+      else a.removeAttribute('aria-current');
+    });
+  }, { rootMargin: '-35% 0px -55% 0px' });
   secciones.forEach((s) => obs.observe(s));
 }
 
 /* En celular, mientras se completa un formulario, los botones flotantes
-   se esconden para no tapar los campos. */
+   se esconden sin parpadear al pasar de un campo al siguiente. */
 function initFocoMovil() {
   const esMovil = () => window.matchMedia('(max-width: 640px)').matches;
+  const selectorCampo = 'form:not(.chat__form) :is(input, select, textarea)';
+  let timerFoco = null;
   document.addEventListener('focusin', (e) => {
-    if (esMovil() && e.target.matches('form:not(.chat__form) :is(input, select, textarea)')) document.body.classList.add('escribiendo');
+    clearTimeout(timerFoco);
+    if (esMovil() && e.target.matches?.(selectorCampo)) {
+      document.body.classList.add('escribiendo');
+    }
   });
-  document.addEventListener('focusout', () => document.body.classList.remove('escribiendo'));
+  document.addEventListener('focusout', () => {
+    clearTimeout(timerFoco);
+    timerFoco = setTimeout(() => {
+      if (!document.activeElement?.matches?.(selectorCampo)) {
+        document.body.classList.remove('escribiendo');
+      }
+    }, 120);
+  });
 }
 
 /* ---------- 15. Arranque ---------- */
@@ -975,9 +1067,12 @@ function initTema() {
 function abrirMaquinaDesdeLink() {
   const coincide = location.hash.match(/^#m-([\w-]+)$/);
   if (!coincide || !MAQUINAS.some((m) => m.id === coincide[1])) return;
+  if (!$(`[data-detalle="${coincide[1]}"]`)) {
+    $('#filtros [data-filtro="todas"]')?.click();
+  }
   $('#maquinas')?.scrollIntoView({ behavior: 'auto', block: 'start' });
   // El disparador para devolver el foco al cerrar es el botón "Ver detalles" de esa tarjeta
-  setTimeout(() => abrirDetalle(coincide[1], $(`[data-detalle="${coincide[1]}"]`)), 150);
+  setTimeout(() => abrirDetalle(coincide[1], $(`[data-detalle="${coincide[1]}"]`)), 120);
 }
 
 document.addEventListener('DOMContentLoaded', () => {

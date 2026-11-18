@@ -21,6 +21,7 @@
   <link rel="canonical" href="https://blotta-tecnologia-alimentaria.netlify.app/">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <link rel="preload" as="image" href="assets/fotos/conformadora.jpg" fetchpriority="high">
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -88,21 +89,24 @@
       d.dataset.tema = t;
       /* El botón sol/luna funciona desde el primer instante, aunque el resto de la página siga cargando */
       document.addEventListener('click', function (e) {
-        if (!e.target.closest || !e.target.closest('#btn-tema')) return;
+        var btn = e.target && e.target.closest ? e.target.closest('#btn-tema') : null;
+        if (!btn) return;
         var nuevo = d.dataset.tema === 'oscuro' ? 'claro' : 'oscuro';
         var cambiar = function () {
           d.dataset.tema = nuevo;
           document.dispatchEvent(new CustomEvent('tema-cambiado'));
         };
         try { localStorage.setItem('tema', nuevo); } catch (err) {}
-        /* Animación: el nuevo modo se expande en círculo desde el botón */
-        var r = e.target.closest('#btn-tema').getBoundingClientRect();
+        /* Animación: el nuevo modo se expande en círculo sin mezclar transiciones intermedias */
+        var r = btn.getBoundingClientRect();
         d.style.setProperty('--tema-x', (r.left + r.width / 2) + 'px');
         d.style.setProperty('--tema-y', (r.top + r.height / 2) + 'px');
         if (document.startViewTransition && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          d.classList.add('vt-tema');
           var vt = document.startViewTransition(cambiar);
-          /* Si tocan el botón muy rápido, la animación anterior se cancela: no es un error */
-          vt.ready.catch(function () {}); vt.finished.catch(function () {});
+          var limpiar = function () { d.classList.remove('vt-tema'); };
+          vt.ready.catch(function () {});
+          vt.finished.then(limpiar, limpiar);
         } else cambiar();
       });
     })();
@@ -122,8 +126,8 @@
   <header class="header" id="header">
     <div class="contenedor header__barra">
       <a class="header__logo" href="index.html" aria-label="Blotta – Tecnología Alimentaria, inicio">
-        <img class="logo--claro" src="assets/logo-blotta.png" alt="Blotta – Tecnología Alimentaria" width="895" height="234">
-        <img class="logo--oscuro" src="assets/logo-blotta-blanco.png" alt="Blotta – Tecnología Alimentaria" width="895" height="234">
+        <img class="logo--claro" src="assets/logo-blotta.png" alt="Blotta – Tecnología Alimentaria" width="895" height="234" decoding="async">
+        <img class="logo--oscuro" src="assets/logo-blotta-blanco.png" alt="Blotta – Tecnología Alimentaria" width="895" height="234" decoding="async">
       </a>
       <nav class="nav" aria-label="Principal">
         <ul class="nav__lista">
@@ -141,8 +145,9 @@
           <svg class="icono-sol" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
         </button>
         <a class="btn btn--cta btn--chico header__cta" href="#presupuesto">Pedí tu presupuesto</a>
-        <button class="hamburguesa" id="btn-menu" aria-label="Abrir menú" aria-expanded="false" aria-controls="menu-movil">
-          <i data-lucide="menu" aria-hidden="true"></i>
+        <button class="hamburguesa" id="btn-menu" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="menu-movil">
+          <svg class="icono-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+          <svg class="icono-cerrar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
         </button>
       </div>
     </div>
@@ -193,7 +198,7 @@
           <div class="hero__media anim" style="--d:180ms">
             <img class="foto" src="assets/fotos/conformadora.jpg" alt="Conformadora de empanadas Blotta MCE1 produciendo empanadas" width="1200" height="500" style="object-position:38% 50%" fetchpriority="high">
             <div class="hero__logo-card">
-              <img src="assets/logo-blotta.png" alt="" width="895" height="234">
+              <img src="assets/logo-blotta.png" alt="" width="895" height="234" decoding="async">
             </div>
           </div>
         </div>
@@ -569,7 +574,7 @@
       <div class="footer__grid">
         <div class="footer__marca">
           <a class="footer__logo-card" href="index.html" aria-label="Blotta, inicio">
-            <img src="assets/logo-blotta.png" alt="Blotta – Tecnología Alimentaria" width="895" height="234">
+            <img src="assets/logo-blotta.png" alt="Blotta – Tecnología Alimentaria" width="895" height="234" loading="lazy" decoding="async">
           </a>
           <p>Maquinaria industrial para la producción de empanadas y masas. Desde 1995.</p>
           <div class="redes" aria-label="Redes sociales">
@@ -608,7 +613,7 @@
       </div>
       <div class="footer__base">
         <div class="empujar">
-          <span class="empujar__logo"><img src="assets/logo-empujar.png" alt="Fundación Empujar" width="588" height="201"></span>
+          <span class="empujar__logo"><img src="assets/logo-empujar.png" alt="Fundación Empujar" width="588" height="201" loading="lazy" decoding="async"></span>
           <span>Proyecto desarrollado con la <strong>Fundación Empujar</strong></span>
         </div>
         <span class="seguro"><i data-lucide="lock" aria-hidden="true"></i> Sitio seguro · HTTPS</span>
@@ -623,8 +628,8 @@
     <div class="modal__interior" id="modal-contenido"></div>
   </dialog>
 
-  <!-- Íconos Lucide (versión fija) -->
-  <script src="assets/iconos.js"></script>
-  <script src="main.js"></script>
+  <!-- Íconos Lucide (versión fija, carga diferida sin bloquear el renderizado) -->
+  <script defer src="assets/iconos.js"></script>
+  <script defer src="main.js"></script>
 </body>
 </html>
