@@ -794,7 +794,7 @@ img.foto { display: block; height: auto; }
   transition: border-color 200ms ease, box-shadow 200ms ease;
 }
 .campo textarea { min-height: 120px; resize: vertical; }
-.campo input::placeholder, .campo textarea::placeholder { color: var(--placeholder); }
+input::placeholder, textarea::placeholder { color: var(--placeholder); opacity: 1; }
 .campo input:focus, .campo select:focus, .campo textarea:focus {
   outline: none;
   border-color: var(--azul);
@@ -1101,7 +1101,7 @@ body.escribiendo .flotantes, body.escribiendo .arriba { opacity: 0; pointer-even
 .chat__form input {
   flex: 1; min-width: 0; min-height: 44px;
   padding: 8px 14px; border-radius: 999px;
-  border: 1.5px solid var(--borde);
+  border: 1.5px solid var(--borde); background: var(--superficie);
   font-family: var(--font-texto); font-size: 1.1rem; color: var(--texto);
 }
 .chat__form input:focus { outline: none; border-color: var(--azul); box-shadow: 0 0 0 3px rgba(18, 63, 179, 0.18); }
@@ -1263,7 +1263,7 @@ body.escribiendo .flotantes, body.escribiendo .arriba { opacity: 0; pointer-even
   --texto: #D9DFF2;
   --texto-suave: #A9B2D6;
   --enlace: #9DB8FF;
-  --placeholder: #7E88B3;
+  --placeholder: #8A94BD;     /* 5.2:1 sobre las tarjetas oscuras (AA) */
   --tinte-naranja: #2A2440;
   --tinte-naranja-2: #2A2440;
   --tinte-azul: #1F2C5C;
